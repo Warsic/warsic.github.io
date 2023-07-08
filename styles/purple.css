@@ -100,6 +100,13 @@ body {
     margin: 0;
     padding: 0;
     max-width: auto;
+    height: 100%;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 /* 页边距 和 页面大小 */
@@ -128,6 +135,8 @@ body {
     margin-right: auto;
     margin-bottom: 0px;
     margin-left: auto;
+
+    flex: 1 0 auto;
 }
 
 .content .markdown-body {
@@ -525,6 +534,8 @@ body {
     padding-bottom: 10px;
     background: var(--inline-code-bg);
     font-size: 0.9rem;
+
+    flex: 0 0 auto;
 }
 
 /* 导航栏 */
@@ -539,6 +550,8 @@ body {
     /* 固定在顶部 */
     margin: 0;
     padding: 0;
+
+    flex: 0 0 auto;
 }
 
 .top ul {
