@@ -95,12 +95,12 @@
 }
 
 /* 页面 */
-html,
+/* html,
 body {
     margin: 0;
     padding: 0;
     max-width: auto;
-}
+} */
 
 /* 页边距 和 页面大小 */
 .content,
