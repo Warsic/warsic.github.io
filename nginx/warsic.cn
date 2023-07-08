@@ -32,6 +32,10 @@ server {
         return 403;
     }
 
+    location /tokens {
+        return 403;
+    }
+
     location = /README.md {
         return 403;
     }
