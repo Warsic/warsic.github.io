@@ -4,9 +4,10 @@ function curl_raw($url, $content, $token) {
     curl_setopt($curl, CURLOPT_HEADER, false);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_HTTPHEADER,
-        array("Content-type: application/json",
-              "User-Agent: " . $_SERVER['HTTP_USER_AGENT'],
-                "Authorization: Bearer " . $token));
+        array("Accept: application/vnd.github+json",
+                "User-Agent: " . $_SERVER['HTTP_USER_AGENT'],
+                "Authorization: Bearer " . $token),
+                "X-GitHub-Api-Version: 2023-07-08");
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
