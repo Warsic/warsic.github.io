@@ -523,7 +523,7 @@ body {
     margin-top: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
-    background: #fdfdfd !important;
+    background: var(--inline-code-bg);
     font-size: 0.9rem;
 }
 
@@ -532,7 +532,7 @@ body {
     /* 设置宽度高度背景颜色 */
     height: 50px;
     width: 100%;
-    background: rgb(189, 181, 181);
+    background: var(--inline-code-bg);
     top: 0;
     /* 离顶部的距离为0 */
     position: fixed;
@@ -544,6 +544,7 @@ body {
 .top ul {
     /* 清除ul标签的默认样式 */
     width: auto;
+    height: 100%;
     /* 宽度也改为自动 */
     list-style-type: none;
     white-space: nowrap;
@@ -556,6 +557,8 @@ body {
 .top li {
     float: left;
     /* 使li内容横向浮动，即横向排列 */
+    width: auto;
+    height: 100%;
     margin: 0;
     padding-left: 5px;
     padding-right: 5px;
@@ -565,14 +568,14 @@ body {
 
 .top li:hover {
     /* 鼠标选中时背景变色 */
-    background-color: #111;
+    background-color: var(--title-color);
 }
 
 .top li a {
     /* 设置链接内容显示的格式 */
     display: block;
     /* 把链接显示为块元素可使整个链接区域可点击 */
-    color: white;
+    color: var(--title-color);
     text-align: center;
     margin: 0;
     overflow: hidden;
@@ -580,25 +583,6 @@ body {
     /* 去除下划线 */
 }
 
-.top ul li ul {
-    /* 设置二级菜单 */
-    margin-left: 0px;
-    margin-right: 0px;
-    padding-left: 0px;
-    padding-right: 0px;
-    background: rgb(189, 181, 181);
-    position: relative;
-    display: none;
-    /* 默认隐藏二级菜单的内容 */
-}
-
-.top ul li:hover ul {
-    /* 鼠标选中二级菜单时 */
-    display: block;
-}
-
-.top ul li ul li {
-    /* 二级菜单li内容的显示 */
-    float: none;
-    text-align: center;
+.top li:hover a {
+    color: white;
 }
