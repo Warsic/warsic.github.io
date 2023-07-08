@@ -2,7 +2,7 @@ server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
 
-    server_name warsic.cn;
+    server_name warsic.cn www.warsic.cn;
     root /var/www/warsic.cn;
     index index.html index.htm index.php index.md;
 
