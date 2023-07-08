@@ -30,11 +30,13 @@ $request_array['mode'] = 'gfm';
 
 $html_article_body = curl_raw($render_url, json_encode($request_array));
 
+$header_text = file_get_contents('src/header.html');
+
 echo '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">';
 echo '<title>' . 'Warsic 音乐社团 - ' . $markdown_filename . '</title>';
 echo '<link rel="stylesheet" type="text/css" href="styles/purple.css">';
 echo '</head>';
-echo '<body class="purple"><div class="content"><article class="markdown-body entry-content container-lg" itemprop="text">';
+echo '<body class="purple">' . $header_text . '<div class="content"><article class="markdown-body entry-content container-lg" itemprop="text">';
 echo $html_article_body;
 echo '</article></div>';
 echo '<div class="container-fluid footer"><div class="row clearfix"><div class="col-md-12 column">';

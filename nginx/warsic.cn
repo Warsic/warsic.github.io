@@ -24,6 +24,10 @@ server {
         return 403;
     }
 
+    location /src {
+        return 403;
+    }
+
     location /nginx {
         return 403;
     }

@@ -354,9 +354,9 @@ img[alt|="shadow"] {
 
 /* 代码框阴影 */
 .highlight {
-  display: block;
-  -webkit-overflow-scrolling: touch;
-  box-shadow: var(--shadow);
+    display: block;
+    -webkit-overflow-scrolling: touch;
+    box-shadow: var(--shadow);
 }
 
 .highlight {
@@ -513,4 +513,115 @@ img[alt|="shadow"] {
     padding-bottom: 10px;
     background: #fdfdfd !important;
     font-size: 0.9rem;
+}
+
+/* 导航栏 */
+@keyframes waves {
+    from {
+        clip-path: polygon(0% 17%,
+                9% 10%,
+                18% 4%,
+                30% 0%,
+                43% 1%,
+                49% 4%,
+                57% 7%,
+                66% 10%,
+                78% 11%,
+                89% 11%,
+                96% 9%,
+                100% 7%,
+                100% 100%,
+                0% 100%);
+    }
+
+    50% {
+        clip-path: polygon(0% 4%,
+                6% 9%,
+                13% 13%,
+                23% 15%,
+                31% 16%,
+                42% 15%,
+                49% 13%,
+                61% 10%,
+                71% 5%,
+                81% 3%,
+                90% 2%,
+                100% 5%,
+                100% 100%,
+                0% 100%);
+    }
+
+    to {
+        clip-path: polygon(0% 17%,
+                9% 10%,
+                18% 4%,
+                30% 0%,
+                43% 1%,
+                49% 4%,
+                57% 7%,
+                66% 10%,
+                78% 11%,
+                89% 11%,
+                96% 9%,
+                100% 7%,
+                100% 100%,
+                0% 100%);
+    }
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+​nav ul {
+    position: relative;
+    display: flex;
+}
+
+nav​ ul li {
+    list-style: none;
+    width: 120px;
+    line-height: 40px;
+    text-align: center;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+nav .slider {
+    width: 100px;
+    height: 40px;
+    background-color: var(--title-color);
+    border-radius: 4px;
+    position: absolute;
+    left: 10px;
+    bottom: 0;
+    z-index: -1;
+    transition: all ease 0.4s;
+    animation: 2s ease-in-out waves infinite;
+}
+
+nav​ li:nth-child(1):hover~.slider {
+    left: 10px;
+}
+
+nav​ li:nth-child(2):hover~.slider {
+    left: 128px;
+}
+
+nav​ li:nth-child(3):hover~.slider {
+    left: 248px;
+}
+
+nav​ li:nth-child(4):hover~.slider {
+    left: 368px;
+}
+
+nav​ li:nth-child(5):hover~.slider {
+    left: 488px;
 }
