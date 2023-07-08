@@ -1,11 +1,12 @@
 <?php
-function curl_raw($url, $content) {
+function curl_raw($url, $content, $token) {
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_HEADER, false);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_HTTPHEADER,
         array("Content-type: application/json",
-              "User-Agent: " . $_SERVER['HTTP_USER_AGENT']));
+              "User-Agent: " . $_SERVER['HTTP_USER_AGENT'],
+                "Authorization: Bearer " . $token));
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
@@ -19,6 +20,7 @@ function curl_raw($url, $content) {
     return $json_response;
 }
 
+$token_text = file_get_contents('tokens/api-token.txt');
 $markdown_filename = $_GET['f'];
 
 $markdown_text = file_get_contents($markdown_filename);
@@ -28,7 +30,7 @@ $render_url = 'https://api.github.com/markdown';
 $request_array['text'] = $markdown_text;
 $request_array['mode'] = 'gfm';
 
-$html_article_body = curl_raw($render_url, json_encode($request_array));
+$html_article_body = curl_raw($render_url, json_encode($request_array), $token_text);
 
 $header_text = file_get_contents('src/header.html');
 
