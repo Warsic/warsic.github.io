@@ -36,4 +36,19 @@ echo '<link rel="stylesheet" type="text/css" href="styles/purple.css">';
 echo '</head>';
 echo '<body class="purple"><div class="content"><article class="markdown-body entry-content container-lg" itemprop="text">';
 echo $html_article_body;
-echo '</article></div></body></html>';
+echo '</article></div>';
+echo '<div class="container-fluid" style="padding-top: 40px;">
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <div class="jumbotron">
+            <div class="container">
+                <center>
+                    <p>Copyright© 2023 All Rights Reserved. </p>
+                    <p>Warsic 音乐社团</p>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+</div>';
+echo '</body></html>';
