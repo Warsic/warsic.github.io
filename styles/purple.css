@@ -339,10 +339,6 @@ pre.md-meta-block {
     margin-top: 0 !important;
 }
 
-.mathjax-block>.code-tooltip {
-    bottom: 0.375rem;
-}
-
 /* 图片靠左显示 */
 /* p .img:only-child {
   width: auto;
@@ -513,4 +509,14 @@ img[alt|="shadow"] {
 
 .contains-task-list .contains-task-list {
     padding-left: 20px;
+}
+
+/* 页脚 */
+.footer {
+    padding-top: 40px;
+}
+
+.footer .jumbotron {
+    background: #fdfdfd !important;
+    font-size: 0.9rem;
 }

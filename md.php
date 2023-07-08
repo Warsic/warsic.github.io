@@ -37,18 +37,9 @@ echo '</head>';
 echo '<body class="purple"><div class="content"><article class="markdown-body entry-content container-lg" itemprop="text">';
 echo $html_article_body;
 echo '</article></div>';
-echo '<div class="container-fluid" style="padding-top: 40px;">
-<div class="row clearfix">
-    <div class="col-md-12 column">
-        <div class="jumbotron">
-            <div class="container">
-                <center>
-                    <p>Copyright© 2023 All Rights Reserved. </p>
-                    <p>Warsic 音乐社团</p>
-                </center>
-            </div>
-        </div>
-    </div>
-</div>
-</div>';
+echo '<div class="container-fluid footer"><div class="row clearfix"><div class="col-md-12 column">';
+echo '<div class="jumbotron"><div class="container"><center>';
+echo '<p>Copyright© 2023 All Rights Reserved. </p>';
+echo '<p>Warsic 音乐社团</p>';
+echo '</center></div></div></div></div></div>';
 echo '</body></html>';
