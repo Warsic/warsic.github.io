@@ -1,15 +1,14 @@
 <?php
 function curl_raw($url, $content, $token) {
-    $request_headers = [];
-    $request_headers = "Accept: application/vnd.github+json";
-    $request_headers = "User-Agent: " . $_SERVER['HTTP_USER_AGENT'];
-    $request_headers = "Authorization: Bearer " . $token;
-    $request_headers = "X-GitHub-Api-Version: 2022-11-28";
+    $accept_header = "Accept: application/vnd.github+json";
+    $token_header = "Authorization: Bearer " . $token;
+    $version_header = "X-GitHub-Api-Version: 2022-11-28";
 
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_HEADER, false);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, $request_headers);
+    curl_setopt($curl, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array($accept_header, $token_header, $version_header));
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
