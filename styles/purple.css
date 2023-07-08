@@ -128,12 +128,14 @@ body {
 }
 
 /* Link 链接 */
-.content a {
+.content a,
+.footer a {
     color: var(--link-color);
     text-decoration: none;
 }
 
-.content a {
+.content a,
+.footer a {
     border-bottom: 1px solid var(--link-bottom);
 }
 
@@ -209,6 +211,7 @@ body {
 }
 
 .content p,
+.footer p,
 .content blockquote,
 .content ul,
 .content ol,
