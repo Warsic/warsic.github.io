@@ -514,9 +514,6 @@ img[alt|="shadow"] {
 /* 页脚 */
 .footer {
     padding-top: 40px;
-}
-
-.footer .jumbotron {
     background: #fdfdfd !important;
     font-size: 0.9rem;
 }

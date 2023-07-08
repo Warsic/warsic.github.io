@@ -39,7 +39,6 @@ echo $html_article_body;
 echo '</article></div>';
 echo '<div class="container-fluid footer"><div class="row clearfix"><div class="col-md-12 column">';
 echo '<div class="jumbotron"><div class="container"><center>';
-echo '<p>Copyright© 2023 All Rights Reserved. </p>';
-echo '<p>Warsic 音乐社团</p>';
+echo '<p>Warsic 音乐社团 © 2023 All Rights Reserved. </p>';
 echo '</center></div></div></div></div></div>';
 echo '</body></html>';
