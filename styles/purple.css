@@ -558,7 +558,7 @@ body {
 .top li {
     float: left;
     /* 使li内容横向浮动，即横向排列 */
-    width: 200;
+    width: 200px;
     height: 100%;
     margin: auto;
     padding: auto;
