@@ -565,6 +565,7 @@ body {
     padding-right: 5px;
     padding-top: 0;
     padding-bottom: 0;
+    vertical-align: middle;
     position: relative;
     overflow: hidden;
 }
@@ -576,12 +577,13 @@ body {
 
 .top li a {
     /* 设置链接内容显示的格式 */
-    display: block;
+    display: flex;
     height: auto;
     width: auto;
     /* 把链接显示为块元素可使整个链接区域可点击 */
     color: var(--title-color);
     text-align: center;
+    vertical-align: middle;
     margin: 0;
     overflow: hidden;
     text-decoration: none;
