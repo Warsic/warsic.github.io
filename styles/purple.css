@@ -360,7 +360,10 @@ img[alt|="shadow"] {
 }
 
 .highlight {
-    padding: 0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
     border-radius: 0.25rem;
 }
 
