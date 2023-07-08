@@ -48,7 +48,7 @@ $footer_text = file_get_contents('src/footer.html');
 
 echo '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">';
 echo '<title>' . 'Warsic 音乐社团 - ' . $markdown_filename . '</title>';
-echo '<link rel="stylesheet" type="text/css" href="styles/purple.css">';
+echo '<link rel="stylesheet" type="text/css" href="/styles/purple.css">';
 echo '</head>';
 echo '<body class="purple"><div class="container">' . $header_text . '<div class="content"><article class="markdown-body entry-content container-lg" itemprop="text">';
 echo $html_article_body;
