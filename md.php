@@ -40,6 +40,6 @@ echo '</article></div>';
 echo '<div class="container-fluid footer"><div class="row clearfix"><div class="col-md-12 column">';
 echo '<div class="jumbotron"><div class="container"><center>';
 echo '<p>Warsic 音乐社团 © 2023 All Rights Reserved.</p>';
-echo 'Github: <a href="https://github.com/Warsic/warsic.cn">https://github.com/Warsic/warsic.cn</a> Email: <a href="mailto://Warsic.WuChang@gmail.com">Warsic.WuChang@gmail.com</a><br>静态页面使用 <a href="https://github.com/FangCunWuChang/php-github-markdown">php-github-markdown</a> 构建';
+echo 'Github: <a href="https://github.com/Warsic/warsic.cn">https://github.com/Warsic/warsic.cn</a> | Email: <a href="mailto://Warsic.WuChang@gmail.com">Warsic.WuChang@gmail.com</a><br>Bilibili: <a href="https://space.bilibili.com/2011729430">https://space.bilibili.com/2011729430</a> | 静态页面使用 <a href="https://github.com/FangCunWuChang/php-github-markdown">php-github-markdown</a> 构建';
 echo '</center></div></div></div></div></div>';
 echo '</body></html>';
