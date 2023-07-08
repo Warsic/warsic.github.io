@@ -509,8 +509,8 @@ img[alt|="shadow"] {
 /* 页脚 */
 .footer {
     margin-top: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     background: #fdfdfd !important;
     font-size: 0.9rem;
 }
