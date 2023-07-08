@@ -106,7 +106,10 @@ body {
 .container {
     display: flex;
     flex-direction: column;
+    width: 100%;
     height: 100%;
+    margin: 0px;
+    padding: 0px;
 }
 
 /* 页边距 和 页面大小 */
