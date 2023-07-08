@@ -353,14 +353,14 @@ img[alt|="shadow"] {
 }
 
 /* 代码框阴影 */
-/* pre.highlight {
+.highlight {
   display: block;
   -webkit-overflow-scrolling: touch;
   box-shadow: var(--shadow);
-} */
+}
 
 .highlight {
-    padding: 0.25rem;
+    padding: 0.5rem;
     border-radius: 0.25rem;
 }
 
