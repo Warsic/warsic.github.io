@@ -17,6 +17,13 @@ function curl_raw($url, $content, $token) {
 
     curl_close($curl);
 
+    switch ($status) {
+        case 200:  # OK
+          break;
+        default:
+          return 'Unexpected HTTP code: '. strval($status) . "\n" . $json_response;
+      }
+
     return $json_response;
 }
 
