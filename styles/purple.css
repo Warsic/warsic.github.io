@@ -505,7 +505,7 @@ img[alt|="shadow"] {
 
 /* 页脚 */
 .footer {
-    padding-top: 40px;
+    margin-top: 40px;
     background: #fdfdfd !important;
     font-size: 0.9rem;
 }
