@@ -44,6 +44,7 @@ $request_array['mode'] = 'gfm';
 $html_article_body = curl_raw($render_url, json_encode($request_array), $token_text);
 
 $header_text = file_get_contents('src/header.html');
+$footer_text = file_get_contents('src/footer.html');
 
 echo '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">';
 echo '<title>' . 'Warsic 音乐社团 - ' . $markdown_filename . '</title>';
@@ -51,10 +52,4 @@ echo '<link rel="stylesheet" type="text/css" href="styles/purple.css">';
 echo '</head>';
 echo '<body class="purple"><div class="container">' . $header_text . '<div class="content"><article class="markdown-body entry-content container-lg" itemprop="text">';
 echo $html_article_body;
-echo '</article></div>';
-echo '<div class="container-fluid footer"><div class="row clearfix"><div class="col-md-12 column">';
-echo '<div class="jumbotron"><div class="container"><center>';
-echo '<p>Warsic 音乐社团 © 2023 All Rights Reserved.</p>';
-echo 'Github: <a href="https://github.com/Warsic/warsic.cn">https://github.com/Warsic/warsic.cn</a> | Email: <a href="mailto://Warsic.WuChang@gmail.com">Warsic.WuChang@gmail.com</a><br>Bilibili: <a href="https://space.bilibili.com/2011729430">https://space.bilibili.com/2011729430</a> | 静态页面使用 <a href="https://github.com/FangCunWuChang/php-github-markdown">php-github-markdown</a> 构建';
-echo '</center></div></div></div></div></div>';
-echo '</div></body></html>';
+echo '</article></div>' . $footer_text .'</div></body></html>';
