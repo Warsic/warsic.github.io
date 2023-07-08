@@ -576,7 +576,7 @@ body {
 .top li a {
     /* 设置链接内容显示的格式 */
     display: block;
-    height: auto;
+    height: 100%;
     width: auto;
     /* 把链接显示为块元素可使整个链接区域可点击 */
     color: var(--title-color);
