@@ -95,13 +95,13 @@
 }
 
 /* 页面 */
-html,
-body {
+html:not(.header),
+body:not(.header) {
     padding: 0 !important;
     max-width: auto !important;
 }
 
-html {
+html:not(.header) {
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
@@ -109,7 +109,7 @@ html {
     -webkit-font-smoothing: initial;
 }
 
-body {
+body:not(.header) {
     color: var(--text-color);
     -webkit-font-smoothing: antialiased;
     line-height: 1.6;
