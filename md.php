@@ -5,9 +5,8 @@ function curl_raw($url, $content, $token) {
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_HTTPHEADER,
         array("Accept: application/vnd.github+json",
-                "User-Agent: " . $_SERVER['HTTP_USER_AGENT'],
                 "Authorization: Bearer " . $token),
-                "X-GitHub-Api-Version: 2023-07-08");
+                "X-GitHub-Api-Version: 2022-11-28");
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
@@ -22,6 +21,7 @@ function curl_raw($url, $content, $token) {
 }
 
 $token_text = file_get_contents('tokens/api-token.txt');
+
 $markdown_filename = $_GET['f'];
 
 $markdown_text = file_get_contents($markdown_filename);
