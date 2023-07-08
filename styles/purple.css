@@ -588,7 +588,7 @@ nav​ ul li {
     text-align: center;
 }
 
-nav ul li a {
+/* nav ul li a {
     color: white;
     text-decoration: none;
 }
@@ -606,22 +606,23 @@ nav .slider {
     animation: 2s ease-in-out waves infinite;
 }
 
-nav​ li:nth-child(1):hover~.slider {
+nav​ li:nth-child(1):hover ~ .slider {
     left: 10px;
 }
 
-nav​ li:nth-child(2):hover~.slider {
+nav​ li:nth-child(2):hover ~ .slider {
     left: 128px;
 }
 
-nav​ li:nth-child(3):hover~.slider {
+nav​ li:nth-child(3):hover ~ .slider {
     left: 248px;
 }
 
-nav​ li:nth-child(4):hover~.slider {
+nav​ li:nth-child(4):hover ~ .slider {
     left: 368px;
 }
 
-nav​ li:nth-child(5):hover~.slider {
+nav​ li:nth-child(5):hover ~ .slider {
     left: 488px;
 }
+*/
