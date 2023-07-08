@@ -30,6 +30,7 @@ function curl_raw($url, $content, $token) {
 }
 
 $token_text = file_get_contents('tokens/api-token.txt');
+$token_text = str_replace(PHP_EOL, '', $token_text);
 
 $markdown_filename = $_GET['f'];
 
