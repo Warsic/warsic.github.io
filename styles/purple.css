@@ -549,6 +549,7 @@ body {
     list-style-type: none;
     white-space: nowrap;
     overflow: hidden;
+    margin-top: 0;
     margin-left: 5%;
     /* margin-top: 0; */
     padding: 0;
