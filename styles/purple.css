@@ -539,6 +539,8 @@ body {
     background: var(--inline-code-bg);
     font-size: 0.9rem;
 
+    z-index: 999;
+
     flex: 0 0 auto;
 }
 
@@ -554,6 +556,8 @@ body {
     /* 固定在顶部 */
     margin: 0;
     padding: 0;
+
+    z-index: 1000;
 
     flex: 0 0 auto;
 }
