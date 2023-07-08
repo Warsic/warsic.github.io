@@ -509,26 +509,8 @@ img[alt|="shadow"] {
     transition: background 0.3s;
 }
 
-/* .task-list-item>input[checked]::before {
-    content: "";
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    height: 60%;
-    width: 2px;
-    transform: rotate(40deg);
-    background: #333;
-} */
-
-.task-list-item>input[checked] {
-    content: "";
-    position: absolute;
-    top: 46%;
-    left: 25%;
-    height: 30%;
-    width: 2px;
-    transform: rotate(-40deg);
-    background: #333;
+.contains-task-list li {
+    margin-left: 24px;
 }
 
 .task-list-item>p {
