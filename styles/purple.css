@@ -574,33 +574,43 @@ body:not(.header) {
     }
 }
 
-nav {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
+.header {
+    box-sizing: border-box;
 }
 
-​nav ul {
+ul.header,
+li.header {
+    margin: 0;
+    padding: 0;
+}
+
+nav.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+ul.header {
     position: relative;
     display: flex;
 }
 
-nav​ ul li {
+ul.header li {
+    /* 如果设置为inline-block，会有空隙 */
+    /* https://stackoverflow.com/questions/19038799/why-is-there-an-unexplainable-gap-between-these-inline-block-div-elements */
     list-style: none;
     width: 120px;
     line-height: 40px;
     text-align: center;
 }
 
-nav ul li a {
+ul.header li a {
     color: white;
     text-decoration: none;
 }
 
-nav .slider {
+.slider.header {
     width: 100px;
     height: 40px;
     background-color: var(--title-color);
@@ -613,22 +623,22 @@ nav .slider {
     animation: 2s ease-in-out waves infinite;
 }
 
-nav​ li:nth-child(1):hover ~ .slider {
+li.header:nth-child(1):hover~.slider {
     left: 10px;
 }
 
-nav​ li:nth-child(2):hover ~ .slider {
+li.header:nth-child(2):hover~.slider {
     left: 128px;
 }
 
-nav​ li:nth-child(3):hover ~ .slider {
+li.header:nth-child(3):hover~.slider {
     left: 248px;
 }
 
-nav​ li:nth-child(4):hover ~ .slider {
+li.header:nth-child(4):hover~.slider {
     left: 368px;
 }
 
-nav​ li:nth-child(5):hover ~ .slider {
+li.header:nth-child(5):hover~.slider {
     left: 488px;
 }
