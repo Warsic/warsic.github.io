@@ -1,13 +1,13 @@
 <?php
 function curl_raw($url, $content, $token) {
-    $ua_header = 'User-Agent: ' . $_SERVER['HTTP_USER_AGENT'];
-    $token_header = 'Authorization: Bearer ' . $token;
+    $ua_header = "User-Agent: " . $_SERVER['HTTP_USER_AGENT'];
+    $token_header = "Authorization: Bearer " . $token;
 
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_HEADER, false);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_HTTPHEADER,
-        array('Accept: application/vnd.github+json',
+        array("Accept: application/vnd.github+json",
                 $ua_header, $token_header));
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
@@ -23,7 +23,7 @@ function curl_raw($url, $content, $token) {
         case 200:  # OK
           break;
         default:
-          return 'Unexpected HTTP code: '. strval($status) . "\n" . $json_response;
+          return "Unexpected HTTP code: " . strval($status) . "\n" . $json_response;
       }
 
     return $json_response;
