@@ -32,11 +32,8 @@ $html_article_body = curl_raw($render_url, json_encode($request_array));
 
 echo '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">';
 echo '<title>' . 'Warsic 音乐社团 - ' . $markdown_filename . '</title>';
-echo '<link rel="stylesheet" type="text/css" href="styles/base.css">';
-echo '<link rel="stylesheet" type="text/css" href="styles/checkboxes.css">';
-echo '<link rel="stylesheet" type="text/css" href="styles/github-markdown.css">';
-echo '<link rel="stylesheet" type="text/css" href="styles/highlight-js.css">';
+echo '<link rel="stylesheet" type="text/css" href="styles/purple.css">';
 echo '</head>';
-echo '<body class="light"><div class="content"><article class="markdown-body entry-content container-lg" itemprop="text">';
+echo '<body class="purple"><div class="content"><article class="markdown-body entry-content container-lg" itemprop="text">';
 echo $html_article_body;
 echo '</article></div></body></html>';
