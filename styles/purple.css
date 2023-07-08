@@ -576,6 +576,8 @@ body:not(.header) {
 
 nav {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     height: 40px;
@@ -593,7 +595,7 @@ nav​ ul li {
     text-align: center;
 }
 
-/* nav ul li a {
+nav ul li a {
     color: white;
     text-decoration: none;
 }
@@ -630,4 +632,3 @@ nav​ li:nth-child(4):hover ~ .slider {
 nav​ li:nth-child(5):hover ~ .slider {
     left: 488px;
 }
-*/
