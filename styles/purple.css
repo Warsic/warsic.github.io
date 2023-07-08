@@ -538,6 +538,7 @@ body {
     position: fixed;
     /* 固定在顶部 */
     margin: 0;
+    padding: 0;
 }
 
 .top ul {
@@ -556,9 +557,15 @@ body {
     float: left;
     /* 使li内容横向浮动，即横向排列 */
     margin: 0;
-    padding: 0;
+    padding-left: 5px;
+    padding-right: 5px;
     position: relative;
     overflow: hidden;
+}
+
+.top li:hover {
+    /* 鼠标选中时背景变色 */
+    background-color: #111;
 }
 
 .top li a {
@@ -567,37 +574,31 @@ body {
     /* 把链接显示为块元素可使整个链接区域可点击 */
     color: white;
     text-align: center;
-    padding-left: 5px;
-    padding-right: 5px;
+    margin: 0;
     overflow: hidden;
     text-decoration: none;
     /* 去除下划线 */
-}
-
-.top li a:hover {
-    /* 鼠标选中时背景变色 */
-    background-color: #111;
 }
 
 .top ul li ul {
     /* 设置二级菜单 */
     margin-left: 0px;
     margin-right: 0px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 0px;
+    padding-right: 0px;
     background: rgb(189, 181, 181);
     position: relative;
     display: none;
     /* 默认隐藏二级菜单的内容 */
 }
 
+.top ul li:hover ul {
+    /* 鼠标选中二级菜单时 */
+    display: block;
+}
+
 .top ul li ul li {
     /* 二级菜单li内容的显示 */
     float: none;
     text-align: center;
-}
-
-.top ul li:hover ul {
-    /* 鼠标选中二级菜单内容时 */
-    display: block;
 }
