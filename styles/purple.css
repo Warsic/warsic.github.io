@@ -530,35 +530,35 @@ body {
 /* 导航栏 */
 .top {
     /* 设置宽度高度背景颜色 */
-    height: auto; /*高度改为自动高度*/
+    height: auto; /* 高度改为自动高度 */
     width:100%;
-    padding: 0;
-    margin: 0;
     background:rgb(189, 181, 181);
-    top: 0;/*离顶部的距离为0*/
+    top: 0;/* 离顶部的距离为0 */
+    position: fixed; /* 固定在顶部 */
+    margin-left: 0;
+    margin-bottom: 5px;
 }
 
 .top ul {
     /* 清除ul标签的默认样式 */
-    width: auto;/*宽度也改为自动*/
+    width: auto;/* 宽度也改为自动 */
     list-style-type: none;
     white-space:nowrap;
     overflow: hidden;
     margin-left: 5%;
-    /* margin-top: 0;          */
+    /* margin-top: 0; */
     padding: 0;
-
 }
 
 .top li {
-    float:left; /* 使li内容横向浮动，即横向排列  */
-    margin-right:2%;  /* 两个li之间的距离*/
+    float:left; /* 使li内容横向浮动，即横向排列 */
+    margin-right:2%;  /* 两个li之间的距离 */
     position: relative;
     overflow: hidden;
 }
 
 .top li a {
-   /* 设置链接内容显示的格式*/
+   /* 设置链接内容显示的格式 */
     display: block; /* 把链接显示为块元素可使整个链接区域可点击 */
     color:white;
     text-align: center;
