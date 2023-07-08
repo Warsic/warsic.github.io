@@ -133,6 +133,7 @@ body {
 
 .content {
     padding: 0px;
+    width: 100%;
     max-width: 1100px;
     margin-top: 50px;
     margin-right: auto;
