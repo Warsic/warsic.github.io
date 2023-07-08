@@ -8,7 +8,7 @@ function curl_raw($url, $content, $token) {
     curl_setopt($curl, CURLOPT_HEADER, false);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
-    curl_setopt($curl, CURLOPT_HTTPHEADER, array($accept_header, $token_header, $version_header));
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array($accept_header, $version_header, $token_header));
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
