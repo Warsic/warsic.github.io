@@ -95,13 +95,13 @@
 }
 
 /* 页面 */
-html,
-body {
+html:not(header),
+body:not(header) {
     padding: 0 !important;
     max-width: auto !important;
 }
 
-html {
+html:not(header) {
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
@@ -109,7 +109,7 @@ html {
     -webkit-font-smoothing: initial;
 }
 
-body {
+body:not(header) {
     color: var(--text-color);
     -webkit-font-smoothing: antialiased;
     line-height: 1.6;
@@ -210,8 +210,8 @@ h6 code {
 
 p,
 blockquote,
-ul,
-ol,
+ul:not(header),
+ol:not(header),
 dl,
 table {
     margin: 0.8em 0;
@@ -224,21 +224,21 @@ hr {
 }
 
 /* 列表 */
-li>ol,
-li>ul {
+li:not(header)>ol,
+li:not(header)>ul:not(header) {
     margin: 0 0;
 }
 
-li p.first {
+li:not(header) p.first {
     display: inline-block;
 }
 
-ul,
-ol {
+ul:not(header),
+ol:not(header) {
     padding-left: 2rem;
 }
 
-ul:first-child,
+ul:not(header):first-child,
 ol:first-child {
     margin-top: 0;
 }
@@ -248,8 +248,8 @@ ol:last-child {
     margin-bottom: 0;
 }
 
-ol li,
-ul li {
+ol:not(header) li:not(header),
+ul:not(header) li:not(header) {
     padding-left: 0.1rem;
 }
 
