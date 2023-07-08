@@ -537,8 +537,7 @@ body {
     /* 离顶部的距离为0 */
     position: fixed;
     /* 固定在顶部 */
-    margin-left: 0;
-    margin-bottom: 5px;
+    margin: 0;
 }
 
 .top ul {
