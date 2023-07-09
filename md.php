@@ -50,10 +50,12 @@ $footer_text = file_get_contents('src/footer.html');
 $script_text = file_get_contents('src/render.js');
 
 echo '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">';
+echo '<link rel="stylesheet" type="text/css" href="/styles/purple.css">';
+echo '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/default.min.css">';
+echo '<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/highlight.min.js"></script>';
 echo '<script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>';
 echo '<script>var mdPath = "' . $load_url . '";</script>';
 echo '<title>' . 'Warsic 音乐社团 - ' . $markdown_filename . '</title>';
-echo '<link rel="stylesheet" type="text/css" href="/styles/purple.css">';
 echo '</head>';
 echo '<body class="purple"><div class="container">' . $header_text . '<div class="content"><article id="render-markdown" class="markdown-body entry-content container-lg" itemprop="text">';
 echo '</article>';
