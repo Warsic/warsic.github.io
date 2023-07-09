@@ -19,6 +19,8 @@ echo '<script src="https://cdn.jsdelivr.net/npm/markdown-it-sub@1.0.0/dist/markd
 echo '<script src="https://cdn.jsdelivr.net/npm/markdown-it-container@3.0.0/dist/markdown-it-container.min.js"></script>';
 echo '<script src="https://cdn.jsdelivr.net/npm/markdown-it-deflist@2.1.0/dist/markdown-it-deflist.min.js"></script>';
 echo '<script src="https://cdn.jsdelivr.net/npm/markdown-it-abbr@1.0.4/dist/markdown-it-abbr.min.js"></script>';
+echo '<script src="https://cdn.jsdelivr.net/npm/markdown-it-cjk-breaks@1.1.3/dist/markdown-it-cjk-breaks.min.js"></script>';
+echo '<script src="https://cdn.jsdelivr.net/npm/markdown-it-checkbox@1.1.0/dist/markdown-it-checkbox.min.js"></script>';
 echo '<script>var mdPath = "' . $load_url . '";</script>';
 echo '<title>' . 'Warsic 音乐社团 - ' . $markdown_filename . '</title>';
 echo '</head>';

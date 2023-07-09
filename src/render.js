@@ -60,6 +60,8 @@ function render(data) {
 	md.use(window.markdownitContainer);
 	md.use(window.markdownitDeflist);
 	md.use(window.markdownitAbbr);
+	md.use(window.markdownitCjkBreaks);
+	md.use(window.markdownitCheckbox);
 
 	document.getElementById('render-markdown').innerHTML = md.render(data);
 }
