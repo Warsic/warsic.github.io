@@ -340,7 +340,7 @@ body {
 
 /* Code fences */
 /* border, bg, font */
-.content .highlight {
+.content .hljs {
     border: 1px solid var(--border);
     border-radius: 5px;
     background: #fdfdfd !important;
@@ -348,17 +348,14 @@ body {
 }
 
 /* 代码框阴影 */
-.content .highlight {
+.content .hljs {
     display: block;
     -webkit-overflow-scrolling: touch;
     box-shadow: var(--shadow);
 }
 
 .content .hljs {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    padding-top: 0.35rem;
-    padding-bottom: 0.35rem;
+    padding: 0.35rem 0.75rem;
     border-radius: 0.25rem;
 }
 
