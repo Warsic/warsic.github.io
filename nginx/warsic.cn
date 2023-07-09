@@ -53,6 +53,17 @@ server {
             return 403;
         }
 
+        set $error_flag 0;
+        if ($uri ~* "^/load.php$") {
+            set $error_flag "${error_flag}1";
+        }
+        if ($arg_f !~ "\.md$") {
+            set $error_flag "${error_flag}2";
+        }
+        if ($error_flag = "012") {
+            return 403;
+        }
+
         include fastcgi.conf;
         fastcgi_pass   127.0.0.1:9000;
         fastcgi_index  index.php;

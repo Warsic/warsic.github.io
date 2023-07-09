@@ -29,27 +29,33 @@ function curl_raw($url, $content, $token) {
     return $json_response;
 }
 
-$token_text = file_get_contents('tokens/api-token.txt');
-$token_text = str_replace(PHP_EOL, '', $token_text);
+#$token_text = file_get_contents('tokens/api-token.txt');
+#$token_text = str_replace(PHP_EOL, '', $token_text);
 
 $markdown_filename = $_GET['f'];
+$load_url = "/load.php?f=" . $markdown_filename;
 
-$markdown_text = file_get_contents($markdown_filename);
+#$markdown_text = file_get_contents($markdown_filename);
 
-$render_url = 'https://api.github.com/markdown';
+#$render_url = 'https://api.github.com/markdown';
 
-$request_array['text'] = $markdown_text;
-$request_array['mode'] = 'markdown';
+#$request_array['text'] = $markdown_text;
+#$request_array['mode'] = 'markdown';
 
-$html_article_body = curl_raw($render_url, json_encode($request_array), $token_text);
+#$html_article_body = curl_raw($render_url, json_encode($request_array), $token_text);
+#$html_article_body = $markdown_text;
 
 $header_text = file_get_contents('src/header.html');
 $footer_text = file_get_contents('src/footer.html');
+$script_text = file_get_contents('src/render.js');
 
 echo '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">';
+echo '<script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>';
+echo '<script>var mdPath = "' . $load_url . '";</script>';
 echo '<title>' . 'Warsic 音乐社团 - ' . $markdown_filename . '</title>';
 echo '<link rel="stylesheet" type="text/css" href="/styles/purple.css">';
 echo '</head>';
-echo '<body class="purple"><div class="container">' . $header_text . '<div class="content"><article class="markdown-body entry-content container-lg" itemprop="text">';
-echo $html_article_body;
-echo '</article></div>' . $footer_text .'</div></body></html>';
+echo '<body class="purple"><div class="container">' . $header_text . '<div class="content"><article id="render-markdown" class="markdown-body entry-content container-lg" itemprop="text">';
+echo '</article>';
+echo '<script>' . $script_text . '</script>';
+echo '</div>' . $footer_text .'</div></body></html>';
