@@ -258,6 +258,7 @@ body {
 /* 表格 */
 .content table {
     margin-bottom: 1.25rem;
+    border-collapse: collapse;
 }
 
 .content table th,
