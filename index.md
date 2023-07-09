@@ -27,7 +27,7 @@
             background: #8064a9;
             text-decoration: none;
         }
-        herf {
+        a {
             text-decoration: none;
         }
     </style>
