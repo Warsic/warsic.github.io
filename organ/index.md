@@ -6,27 +6,19 @@ Warsic 音乐社团由曲部、绘部、文案部、宣传部四个部门组成�
 ## 曲部
 曲部负责歌曲的制作以及提供音乐专业相关的支持，成员由曲师/音乐人组成。  
 <br>
-<a href="music-depart.md">
-    <button style="@import url(/styles/btn.css);" class="btnDepart" name="button">访问部门页面</button>
-</a>
+<button style="@import url(/styles/btn.css);" class="btnDepart" onclick='location.href=("music-depart.md")'>访问部门页面</button>
 
 ## 绘部
 绘部负责专辑封面、美术宣传材料及其他美术资源的制作，成员由画师/美工组成。  
 <br>
-<a href="illust-depart.md">
-    <button style="@import url(/styles/btn.css);" class="btnDepart" name="button">访问部门页面</button>
-</a>
+<button style="@import url(/styles/btn.css);" class="btnDepart" onclick='location.href=("illust-depart.md")'>访问部门页面</button>
 
 ## 文案部
 文案部负责专辑与歌曲文案的制作及撰写其他文学宣传材料，成员由词作/文手组成。  
 <br>
-<a href="liter-depart.md">
-    <button style="@import url(/styles/btn.css);" class="btnDepart" name="button">访问部门页面</button>
-</a>
+<button style="@import url(/styles/btn.css);" class="btnDepart" onclick='location.href=("liter-depart.md")'>访问部门页面</button>
 
 ## 宣传部
 宣传部负责社团作品与活动的宣传推广工作，同时负责社团官方账号的运营，以及进行后期与其他专业技术工作。  
 <br>
-<a href="conduct-depart.md">
-    <button style="@import url(/styles/btn.css);" class="btnDepart" name="button">访问部门页面</button>
-</a>
+<button style="@import url(/styles/btn.css);" class="btnDepart" onclick='location.href=("conduct-depart.md")'>访问部门页面</button>
