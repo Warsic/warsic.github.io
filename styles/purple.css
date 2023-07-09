@@ -326,12 +326,11 @@ body {
     margin-top: 0 !important;
 }
 
-/* 图片靠左显示 */
-/* .content p .img:only-child {
+/* 图片居中显示 */
+.content p .img:only-child {
   width: auto;
-  text-align: left;
-  margin-left: 2rem;
-} */
+  text-align: center;
+}
 
 /* 写![shadow-...]() 显示图片阴影 */
 .content img[alt|="shadow"] {
