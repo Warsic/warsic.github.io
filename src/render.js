@@ -16,7 +16,7 @@ function load(path, callback, errorHandler) {
 }
 
 function render(data) {
-	let md = new MarkdownIt({
+	let md = window.markdownit({
 		html: true,        // Enable HTML tags in source
 		xhtmlOut: true,        // Use '/' to close single tags (<br />).
 		// This is only for full CommonMark compatibility.
