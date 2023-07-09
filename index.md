@@ -1,4 +1,4 @@
-<div align=center style="border-radius: 50%; overflow: hidden;"><img src="/assets/emblem.jpg" /></div>
+<div align=center><img src="/assets/emblem.jpg" style="border-radius: 50%; overflow: hidden;" /></div>
 
 # Warsic 音乐社团
 
@@ -27,7 +27,7 @@
             background: #8064a9;
             text-decoration: none;
         }
-        a {
+        a:link, a:visited {
             text-decoration: none;
         }
     </style>
