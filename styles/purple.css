@@ -327,7 +327,7 @@ body {
 }
 
 /* 图片居中显示 */
-.content p img {
+.content img {
     width: auto;
     height: auto;
     margin: auto;
