@@ -16,8 +16,7 @@ function load(path, callback, errorHandler) {
 }
 
 function render(data) {
-	let hljs = require('highlight.js');
-	let md = require('markdown-it')({
+	let md = new MarkdownIt({
 		html: true,        // Enable HTML tags in source
 		xhtmlOut: true,        // Use '/' to close single tags (<br />).
 		// This is only for full CommonMark compatibility.
