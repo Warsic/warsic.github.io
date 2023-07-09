@@ -27,11 +27,8 @@
             background: #8064a9;
             text-decoration: none;
         }
-        a:link, a:visited {
-            text-decoration: none;
-        }
     </style>
-    <a herf="/organ"><button class="btn">组织</button></a>
-    <a herf="/create"><button class="btn">创作</button></a>
-    <a herf="/joinus"><button class="btn">加入我们</button></a>
+    <button class="btn" onclick='location.href = ("/organ");'>组织</button>
+    <button class="btn" onclick='location.href = ("/create");'>创作</button>
+    <button class="btn" onclick='location.href = ("/joinus");'>加入我们</button>
 </div>
