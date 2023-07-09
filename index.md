@@ -27,6 +27,9 @@
             background: #8064a9;
             text-decoration: none;
         }
+        herf {
+            text-decoration: none;
+        }
     </style>
     <a herf="/organ"><button class="btn">组织</button></a>
     <a herf="/create"><button class="btn">创作</button></a>
