@@ -343,7 +343,6 @@ body {
 .content .hljs {
     border: 1px solid var(--border);
     border-radius: 5px;
-    background: #fdfdfd !important;
     font-size: 0.9rem;
 }
 
