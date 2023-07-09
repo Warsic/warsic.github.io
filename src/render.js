@@ -52,6 +52,15 @@ function render(data) {
 		}
 	});
 
+	md.use(window.markdownitFootnote);
+	md.use(window.markdownitEmoji);
+	md.use(window.markdownitMark);
+	md.use(window.markdownitSup);
+	md.use(window.markdownitSub);
+	md.use(window.markdownitContainer);
+	md.use(window.markdownitDeflist);
+	md.use(window.markdownitAbbr);
+
 	document.getElementById('render-markdown').innerHTML = md.render(data);
 }
 
