@@ -327,9 +327,11 @@ body {
 }
 
 /* 图片居中显示 */
-.content p img:only-child {
-  width: auto;
-  text-align: center;
+.content p img {
+    width: auto;
+    height: auto;
+    margin: auto;
+    text-align: center;
 }
 
 /* 写![shadow-...]() 显示图片阴影 */
