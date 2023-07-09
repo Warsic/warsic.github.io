@@ -39,7 +39,7 @@ $markdown_text = file_get_contents($markdown_filename);
 $render_url = 'https://api.github.com/markdown';
 
 $request_array['text'] = $markdown_text;
-$request_array['mode'] = 'gfm';
+$request_array['mode'] = 'markdown';
 
 $html_article_body = curl_raw($render_url, json_encode($request_array), $token_text);
 
