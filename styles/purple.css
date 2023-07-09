@@ -327,7 +327,7 @@ body {
 }
 
 /* 图片居中显示 */
-.content p .img:only-child {
+.content p img:only-child {
   width: auto;
   text-align: center;
 }
