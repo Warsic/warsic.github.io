@@ -20,7 +20,7 @@
         background: #8064a9;
     }
 
-    .no-text-decoration a {
+    a:has(>img) {
         text-decoration: none;
     }
 </style>
@@ -38,7 +38,6 @@
 [![forthebadge](https://forthebadge.com/images/badges/powered-by-water.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/uses-brains.svg)](https://forthebadge.com)
 [![forthebadge](https://forthebadge.com/images/badges/winter-is-coming.svg)](https://forthebadge.com)
-{.no-text-decoration}
 
 ## 关于我
 無常，入门级 C++ 开发者。==略懂一点点虚拟歌姬和 DAW 原理。==  
@@ -54,7 +53,6 @@
 [![LUCE-cpp](https://github-readme-stats-warsicwuchang-gmailcom.vercel.app/api/pin/?username=FangCunWuChang&repo=LUCE-cpp)](https://github.com/FangCunWuChang/LUCE-cpp)  
 [![JMADF](https://github-readme-stats-warsicwuchang-gmailcom.vercel.app/api/pin/?username=FangCunWuChang&repo=JMADF)](https://github.com/FangCunWuChang/JMADF)
 [![libMackieControl](https://github-readme-stats-warsicwuchang-gmailcom.vercel.app/api/pin/?username=Do-sth-sharp&repo=libMackieControl)](https://github.com/Do-sth-sharp/libMackieControl)  
-{.no-text-decoration}
 
 ### 调教作品
 #### [【洛天依AI】那年烟花绚烂时，为何没有遇见你（Cover叶里）](https://www.bilibili.com/video/BV18M4y147oF)
