@@ -21,6 +21,7 @@
     }
 
     a:has(>img) {
+        border-bottom: none;
         text-decoration: none;
     }
 </style>
