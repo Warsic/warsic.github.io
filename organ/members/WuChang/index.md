@@ -20,7 +20,7 @@
         background: #8064a9;
     }
 
-    .no-text-decoration a {
+    .no-text-decoration {
         text-decoration: none;
     }
 </style>
@@ -28,18 +28,16 @@
 <div align=center><img src="assets/avatar.jpg" style="width: 200px; height: auto; border-radius: 50%; overflow: hidden;" /></div>
 
 # 無常
-::: no-text-decoration  
-[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/contains-cat-gifs.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/ages-20-30.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/made-with-markdown.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/makes-people-smile.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/powered-by-black-magic.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/powered-by-water.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/uses-brains.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/winter-is-coming.svg)](https://forthebadge.com)
-:::  
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com){.no-text-decoration}
+[![forthebadge](https://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg)](https://forthebadge.com){.no-text-decoration}
+[![forthebadge](https://forthebadge.com/images/badges/contains-cat-gifs.svg)](https://forthebadge.com){.no-text-decoration}
+[![forthebadge](https://forthebadge.com/images/badges/ages-20-30.svg)](https://forthebadge.com){.no-text-decoration}
+[![forthebadge](https://forthebadge.com/images/badges/made-with-markdown.svg)](https://forthebadge.com){.no-text-decoration}
+[![forthebadge](https://forthebadge.com/images/badges/makes-people-smile.svg)](https://forthebadge.com){.no-text-decoration}
+[![forthebadge](https://forthebadge.com/images/badges/powered-by-black-magic.svg)](https://forthebadge.com){.no-text-decoration}
+[![forthebadge](https://forthebadge.com/images/badges/powered-by-water.svg)](https://forthebadge.com){.no-text-decoration}
+[![forthebadge](https://forthebadge.com/images/badges/uses-brains.svg)](https://forthebadge.com){.no-text-decoration}
+[![forthebadge](https://forthebadge.com/images/badges/winter-is-coming.svg)](https://forthebadge.com){.no-text-decoration}
 
 ## 关于我
 無常，入门级 C++ 开发者。==略懂一点点虚拟歌姬和 DAW 原理。==  
@@ -51,12 +49,10 @@
 
 ## 代表作
 ### 软件项目
-::: no-text-decoration  
-[![VocalShaper](https://github-readme-stats-warsicwuchang-gmailcom.vercel.app/api/pin/?username=Do-sth-sharp&repo=VocalShaper)](https://github.com/Do-sth-sharp/VocalShaper)
-[![LUCE-cpp](https://github-readme-stats-warsicwuchang-gmailcom.vercel.app/api/pin/?username=FangCunWuChang&repo=LUCE-cpp)](https://github.com/FangCunWuChang/LUCE-cpp)  
-[![JMADF](https://github-readme-stats-warsicwuchang-gmailcom.vercel.app/api/pin/?username=FangCunWuChang&repo=JMADF)](https://github.com/FangCunWuChang/JMADF)
-[![libMackieControl](https://github-readme-stats-warsicwuchang-gmailcom.vercel.app/api/pin/?username=Do-sth-sharp&repo=libMackieControl)](https://github.com/Do-sth-sharp/libMackieControl)  
-:::  
+[![VocalShaper](https://github-readme-stats-warsicwuchang-gmailcom.vercel.app/api/pin/?username=Do-sth-sharp&repo=VocalShaper)](https://github.com/Do-sth-sharp/VocalShaper){.no-text-decoration}
+[![LUCE-cpp](https://github-readme-stats-warsicwuchang-gmailcom.vercel.app/api/pin/?username=FangCunWuChang&repo=LUCE-cpp)](https://github.com/FangCunWuChang/LUCE-cpp){.no-text-decoration}  
+[![JMADF](https://github-readme-stats-warsicwuchang-gmailcom.vercel.app/api/pin/?username=FangCunWuChang&repo=JMADF)](https://github.com/FangCunWuChang/JMADF){.no-text-decoration}
+[![libMackieControl](https://github-readme-stats-warsicwuchang-gmailcom.vercel.app/api/pin/?username=Do-sth-sharp&repo=libMackieControl)](https://github.com/Do-sth-sharp/libMackieControl){.no-text-decoration}  
 
 ### 调教作品
 #### [【洛天依AI】那年烟花绚烂时，为何没有遇见你（Cover叶里）](https://www.bilibili.com/video/BV18M4y147oF)
