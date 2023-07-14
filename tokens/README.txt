@@ -1,1 +1,1 @@
-Put your github api token at here as api-token.txt.
+Put your pull key at here as pull-key.txt.
