@@ -10,7 +10,7 @@ if ($pull_key === $key_content) {
     echo '<title>' . 'Warsic 音乐社团 - 已更新网站' . '</title>';
     echo '</head>';
     echo '<body>';
-    echo exec("sudo git pull");
+    passthru("sudo git pull");
     echo '</body></html>';
 }
 else {
