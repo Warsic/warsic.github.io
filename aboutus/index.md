@@ -18,7 +18,10 @@
 
 ![about-kino](/assets/kino-about.jpg)  
 
-![kino-cute](/assets/kino-cute.png) ![kino](/assets/kino.jpg)  
+<div>
+<img alt="kino-cute" src="/assets/kino-cute.png" style="width: auto; height: 150px;" />
+<img alt="kino" src="/assets/kino.jpg" style="width: auto; height: 150px;" />
+</div>
 
 ## 信息公开
 - [Warsic 纯音社社团章程](./regulation.md)
