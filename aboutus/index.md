@@ -19,8 +19,8 @@
 ![about-kino](/assets/kino-about.jpg)  
 
 <div>
-<img alt="kino-cute" src="/assets/kino-cute.png" style="width: auto; height: 350px;" />
-<img alt="kino" src="/assets/kino.jpg" style="width: auto; height: 350px;" />
+<img alt="kino-cute" src="/assets/kino-cute.png" style="width: auto; height: 450px;" />
+<img alt="kino" src="/assets/kino.jpg" style="width: auto; height: 450px;" />
 </div>
 
 ## 信息公开
