@@ -9,7 +9,7 @@ if ($pull_key === $key_content) {
     echo '<title>' . 'Warsic 音乐社团 - 已更新网站' . '</title>';
     echo '</head>';
     echo '<body>';
-    echo exec("whoami");
+    echo exec("sudo git pull");
     echo '</body></html>';
 }
 else {
