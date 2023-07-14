@@ -14,9 +14,9 @@ if ($pull_key === $key_content) {
     echo '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">';
     echo '<title>' . 'Warsic 音乐社团 - 已更新网站' . '</title>';
     echo '</head>';
-    echo '<body>';
+    echo '<body><p>';
     echo $outstr;
-    echo '</body></html>';
+    echo '</p></body></html>';
 }
 else {
     http_response_code(401);
