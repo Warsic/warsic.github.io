@@ -6,11 +6,16 @@ $key_content = str_replace(PHP_EOL, '', $key_content);
 
 # Add 'www-data ALL=(root) NOPASSWD:/usr/bin/git' to /etc/sudoers first.
 if ($pull_key === $key_content) {
+    $output = [];
+    exec("sudo git pull", $output);
+
+    $outstr = join("<br>", $output);
+
     echo '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">';
     echo '<title>' . 'Warsic 音乐社团 - 已更新网站' . '</title>';
     echo '</head>';
     echo '<body>';
-    passthru("sudo git pull");
+    echo $outstr;
     echo '</body></html>';
 }
 else {
