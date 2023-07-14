@@ -30,5 +30,6 @@
     </style>
     <button class="btn" onclick='location.href = ("/organ");'>组织</button>
     <button class="btn" onclick='location.href = ("/create");'>创作</button>
+    <button class="btn" onclick='location.href = ("/aboutus");'>关于社团</button>
     <button class="btn" onclick='location.href = ("/joinus");'>加入我们</button>
 </div>
