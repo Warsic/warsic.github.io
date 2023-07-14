@@ -16,6 +16,8 @@ if ($pull_key === $key_content) {
     echo '</head>';
     echo '<body><p>';
     echo $outstr;
+    echo '</p><p>';
+    echo '=============== ' . date('Y-m-d H:i:s') . ' ===============';
     echo '</p></body></html>';
 }
 else {
