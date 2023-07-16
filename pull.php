@@ -9,14 +9,14 @@ if ($pull_key === $key_content) {
     $output = [];
     exec("sudo git pull", $output);
 
-    $outstr = join("<br>", $output);
+    $outstr = join("\n", $output);
 
     echo '<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">';
     echo '<title>' . 'Warsic 音乐社团 - 已更新网站' . '</title>';
     echo '</head>';
-    echo '<body><p>';
+    echo '<body><p><pre>';
     echo $outstr;
-    echo '</p><p>';
+    echo '</pre></p><p>';
     echo '=============== ' . date('Y-m-d H:i:s') . ' ===============';
     echo '</p></body></html>';
 }
