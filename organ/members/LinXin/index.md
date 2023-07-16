@@ -36,8 +36,7 @@
 
 .box-wrap>.text {
     width: 100%;
-    height: auto;
-    margin: 100% auto;
+    margin-top: 100%;
 }
 
 .box>img {
