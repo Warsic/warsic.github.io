@@ -58,5 +58,5 @@
 		<div class="box"><img src="assets/img7.jpg" /></div>
 		<div class="box"><img src="assets/img8.jpg" /></div>
 		<div class="box"><img src="assets/img9.jpg" /></div>
-        <div class="text"><p><strong>“生活可爱，万物美好。”</strong></p></div>
+        <div class="text"><p><strong>“生活美好，万物可爱。”</strong></p></div>
 </div>
