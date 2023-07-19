@@ -36,7 +36,7 @@
 | 依旧在雨中等你 | 社员 | <https://music.163.com/artist?id=12553561> | <https://space.bilibili.com/191399247> ||
 | 壹勺籽糖 | 社员 | <https://music.163.com/artist?id=34875993> |||
 | 一只影子YZYZ | 社员 | <https://music.163.com/artist?id=13448100> |||
-| 云邸 | 社员 | <https://music.163.com/artist?id=50017835> |||
+| 云邸 | 社员 | <https://music.163.com/artist?id=50017835> | <https://space.bilibili.com/1835782829> ||
 | 小鲁班 | 话事人 | <https://music.163.com/artist?id=35203290> | <https://space.bilibili.com/411236199> ||
 | Zocean | 社员 | <https://music.163.com/artist?id=32711204> |||
 | 辰年二月六 | 社员 | <https://music.163.com/artist?id=12195712> | <https://space.bilibili.com/87973626> ||
