@@ -7,7 +7,7 @@
 <style>
     .img-box>img {
         width: auto;
-        height: 450px;
+        height: 250px;
         margin: 1% 0px;
         background-color: #8064a9;
     }
