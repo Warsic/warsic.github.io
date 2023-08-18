@@ -19,6 +19,9 @@
 ## 企划作品
 待发布
 
+## 人员招募
+查看[最新人员招募信息](https://docs.qq.com/doc/DRm5qdFpiS0d5TmhR)  
+
 ## 加入企划
 - QQ: 3142324836
 - Email: [3142324836@qq.com](mailto://3142324836@qq.com)
