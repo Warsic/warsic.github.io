@@ -70,5 +70,4 @@
 | 无常 | 社员 | <https://music.163.com/user/home?id=3329260398> |||
 | 翰林 | 社员 | <https://music.163.com/user/home?id=8097446766> |||
 | 清梦锦晨 | 社员 ||||
-| 柟栢 | 社员 | <https://music.163.com/user/home?id=6465878011> | <https://space.bilibili.com/1178129072> ||
 | 诗泠莹子 | 社员 | <https://music.163.com/user/home?id=1841381156> |||
