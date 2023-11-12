@@ -1,6 +1,6 @@
 # 加入社团
 ## 社员职责
-1. 遵守[社团章程](/aboutus/regulation.md)，积极参加社团活动
+1. 遵守[社团章程](/index.html?page=aboutus/regulation.md)，积极参加社团活动
 2. 尊重其他成员，尊重其他社团
 3. 对外积极树立本社团良好形象，为社团的发展出谋划策
 

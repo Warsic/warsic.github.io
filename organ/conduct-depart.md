@@ -12,7 +12,7 @@
 | 轰寒冰 | 社员 | <https://music.163.com/user/home?id=434711227> |||
 | 阿茶 | 话事人 | <https://music.163.com/user/home?id=1753038611> |||
 | 七彻 | 话事人 | <https://music.163.com/user/home?id=432600510> | <https://space.bilibili.com/523402096> ||
-| [林忻](members/LinXin) | 社员 | <https://music.163.com/user/home?id=423939817> | <https://space.bilibili.com/178484473> ||
+| [林忻](/index.html?page=organ/members/LinXin/index.md) | 社员 | <https://music.163.com/user/home?id=423939817> | <https://space.bilibili.com/178484473> ||
 | 洛拧 | 话事人 | <https://music.163.com/user/home?id=54211667> | <https://space.bilibili.com/1881163066> ||
 | 派大双 | 社员 | <https://music.163.com/user/home?id=264540511> |||
 | DCleanMeow | 社员 | <https://music.163.com/user/home?id=1528751263> |||
@@ -39,7 +39,7 @@
 | 小欧 | 社员 | <https://music.163.com/user/home?id=1716227849> |||
 | 灯笼戒 | 社员 | <https://music.163.com/user/home?id=2118854026> |||
 | 青枫-月影 | 社员 | <https://music.163.com/user/home?id=1521252905> | <https://space.bilibili.com/495884008> ||
-| [無常](members/WuChang) | 社员 | <https://music.163.com/user/home?id=559842646> | <https://space.bilibili.com/161161623> ||
+| [無常](/index.html?page=organ/members/WuChang/index.md) | 社员 | <https://music.163.com/user/home?id=559842646> | <https://space.bilibili.com/161161623> ||
 | 雨宮華燐 | 社员 | <https://music.163.com/user/home?id=127516682> | <https://space.bilibili.com/17947859> ||
 | 研彧 | 社员 | <https://music.163.com/user/home?id=619176844> |||
 | 阿华有点萌 | 社员 | <https://music.163.com/user/home?id=1994855649> |||

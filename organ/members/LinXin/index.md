@@ -1,4 +1,4 @@
-<div align=center><img src="assets/avatar.jpg" style="width: 250px; height: auto; border-radius: 50%; overflow: hidden;" /></div>
+<div align=center><img src="/organ/members/LinXin/assets/avatar.jpg" style="width: 250px; height: auto; border-radius: 50%; overflow: hidden;" /></div>
 
 # 林忻
 
@@ -49,14 +49,14 @@
 }
 </style>
 <div class="box-wrap">
-		<div class="box"><img src="assets/img1.jpg" /></div>
-		<div class="box"><img src="assets/img2.jpg" /></div>
-		<div class="box"><img src="assets/img3.jpg" /></div>
-		<div class="box"><img src="assets/img4.jpg" /></div>
-		<div class="box"><img src="assets/img5.jpg" /></div>
-		<div class="box"><img src="assets/img6.jpg" /></div>
-		<div class="box"><img src="assets/img7.jpg" /></div>
-		<div class="box"><img src="assets/img8.jpg" /></div>
-		<div class="box"><img src="assets/img9.jpg" /></div>
+		<div class="box"><img src="/organ/members/LinXin/assets/img1.jpg" /></div>
+		<div class="box"><img src="/organ/members/LinXin/assets/img2.jpg" /></div>
+		<div class="box"><img src="/organ/members/LinXin/assets/img3.jpg" /></div>
+		<div class="box"><img src="/organ/members/LinXin/assets/img4.jpg" /></div>
+		<div class="box"><img src="/organ/members/LinXin/assets/img5.jpg" /></div>
+		<div class="box"><img src="/organ/members/LinXin/assets/img6.jpg" /></div>
+		<div class="box"><img src="/organ/members/LinXin/assets/img7.jpg" /></div>
+		<div class="box"><img src="/organ/members/LinXin/assets/img8.jpg" /></div>
+		<div class="box"><img src="/organ/members/LinXin/assets/img9.jpg" /></div>
         <div class="text"><p><strong>“生活美好，万物可爱。”</strong></p></div>
 </div>

@@ -9,7 +9,7 @@
         width: auto;
         height: 250px;
         margin: 0px;
-        background-color: #8064a9;
+        background-color: var(--title-color);
     }
 </style>
 <div class="img-box">

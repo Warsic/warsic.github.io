@@ -24,8 +24,8 @@
 </div>
 
 ## 信息公开
-- [Warsic 纯音社社团章程](./regulation.md)
-- [Warsic 入社通道](/joinus)
+- [Warsic 纯音社社团章程](/index.html?page=aboutus/regulation.md)
+- [Warsic 入社通道](/index.html?page=joinus/index.md)
 
 ## 官方账号
 - 网易云音乐：<https://music.163.com/artist?id=47917455>

@@ -1,6 +1,6 @@
 # 创作
 ## 专辑
-### [时语](albums/shiyu.md)
+### [时语](/index.html?page=create/albums/shiyu.md)
 
 <img src="/assets/img20230119151348.jpg" style="width: 250px; height: auto;"/>
 
@@ -16,7 +16,7 @@
 >
 > 冬天，你行走于雪地。孩童将松软的雪团成一个个紧实的球，手冻得通红也浑然不觉。你忍不住也俯身抓起一把雪，忽然脖颈一凉，友人已将一团雪塞进了你的衣领。  
 
-### [涅槃](albums/niepan.md)
+### [涅槃](/index.html?page=create/albums/niepan.md)
 
 <img src="/assets/imgAEA79F3228F38AD6931525C2D54932CE.jpg" style="width: 250px; height: auto;"/>
 
@@ -42,7 +42,7 @@
 >
 > 这是我的涅槃重生  
 
-### [心有乐章](albums/xinyouyuezhang.md)
+### [心有乐章](/index.html?page=create/albums/xinyouyuezhang.md)
 
 <img src="/assets/img20230119144401.png" style="width: 250px; height: auto;"/>
 
@@ -80,7 +80,7 @@
 >
 > 六根虚诞，故人籁乃妄作；六境清幻，故地籁徒显表；六道轮回，故天籁远净真；万法皆空，故心籁即太一。今华新客各倾声才，为音乐以度心章，固不量也，可堪追也。沨沨而婉，熙熙且泱。雅哉！渊乎？美矣。  
 
-### [Warsic · 夏日特调](albums/xiaritetiao.md)
+### [Warsic · 夏日特调](/index.html?page=create/albums/xiaritetiao.md)
 
 <img src="/assets/3D01835D-CC88-4463-CEC1-EB4D56BB1751.jpg" style="width: 250px; height: auto;"/>
 
@@ -113,4 +113,4 @@
 4. 分享Ginko-寒柴创建的歌单「国人纯音|年轻的灵魂将写下关于梦的乐章」: <https://music.163.com/playlist/5052229455/431732797> (来自@网易云音乐)  
 
 ## 社团项目
-- [某企划](projects/aProject)
+- [某企划](/index.html?page=create/projects/aProject/index.md)

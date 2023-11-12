@@ -5,25 +5,25 @@
         -moz-border-radius: 10;
         border-radius: 10px;
         border: none;
-        color: #8064a9;
+        color: var(--title-color);
         font-family: Georgia;
         font-weight: bold;
         font-size: 17px;
         padding: 12px;
         margin: 10px 20px;
-        background: #f4f2f9;
+        background: var(--inline-code-bg);
         text-decoration: none;
         cursor: pointer;
     }
     .btn:hover {
         color: white;
-        background: #8064a9;
+        background: var(--title-color);
         text-decoration: none;
     }
 </style>
 
 # 某企划
-<img src="assets/logo.png" style="width: 150px; height: auto;"/>
+<img src="/create/projects/aProject/assets/logo.png" style="width: 150px; height: auto;"/>
 
 企划主题：用歌曲讲述故事。  
 

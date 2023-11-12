@@ -5,19 +5,19 @@
         -moz-border-radius: 10;
         border-radius: 10px;
         border: none;
-        color: #8064a9;
+        color: var(--title-color);
         font-family: Georgia;
         font-weight: bold;
         font-size: 17px;
         padding: 12px;
         margin: 10px 15px;
-        background: #f4f2f9;
+        background: var(--inline-code-bg);
         text-decoration: none;
         cursor: pointer;
     }
     .btn:hover {
         color: white;
-        background: #8064a9;
+        background: var(--title-color);
     }
 
     a:has(>img) {
@@ -26,7 +26,7 @@
     }
 </style>
 
-<div align=center><img src="assets/avatar.jpg" style="width: 250px; height: auto; border-radius: 50%; overflow: hidden;" /></div>
+<div align=center><img src="/organ/members/WuChang/assets/avatar.jpg" style="width: 250px; height: auto; border-radius: 50%; overflow: hidden;" /></div>
 
 # 無常
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
@@ -46,7 +46,7 @@
 歌曲策划，~~可以带着创作者一起开摆那种~~。在 Warsic 音乐社团宣传部里开摆，在做的企划是《[某企划](/create/projects/aProject)》。  
 虚拟歌姬调教，==擅长大市唱引擎==，有时会跟 ACE 反复拉扯，==群里最后一位坚持使用 Vocaloid 的 P 主==。==洛天依の调教上手==。  
 
-<img src="assets/vocaloid.jpg" style="width: 200px; height: auto;" />
+<img src="/organ/members/WuChang/assets/vocaloid.jpg" style="width: 200px; height: auto;" />
 
 ## 代表作
 ### 软件项目
