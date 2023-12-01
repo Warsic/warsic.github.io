@@ -44,7 +44,15 @@
 1. 企划中作品以双本家为主，若实在缺少某一本家的制作人员可只发布单一本家，另一本家的制作待未来补充。  
 
 ## 企划作品
-待发布
+### [狐狸的玫瑰丛林](https://music.163.com/#/album?id=179518448)
+
+<p>
+    <img src="/create/projects/aProject/assets/JuOADXs1fEhYu65issnybw==_109951169071949407.png" style="width: 200px; height: auto;"/>
+</p>
+<p>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=2102062331&auto=0&height=66"></iframe>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=2102064943&auto=0&height=66"></iframe>
+</p>
 
 ## 人员招募🔥
 
