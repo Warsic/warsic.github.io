@@ -43,7 +43,7 @@
 ## 关于我
 無常，入门级 C++ 开发者。==略懂一点点虚拟歌姬和 DAW 原理。==  
 随缘古风词作，~~可以由感而发写出狗屁不通的歌词~~，但不是经常写。  
-歌曲策划，~~可以带着创作者一起开摆那种~~。在 Warsic 音乐社团宣传部里开摆，在做的企划是《[某企划](/create/projects/aProject)》。  
+歌曲策划，~~可以带着创作者一起开摆那种~~。在 Warsic 音乐社团宣传部里开摆，在做的企划是《[某企划](https://a-project.warsic.cn/)》。  
 虚拟歌姬调教，==擅长大市唱引擎==，有时会跟 ACE 反复拉扯，==群里最后一位坚持使用 Vocaloid 的 P 主==。==洛天依の调教上手==。  
 
 <img src="/organ/members/WuChang/assets/vocaloid.jpg" style="width: 200px; height: auto;" />
