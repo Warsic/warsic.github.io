@@ -14,7 +14,6 @@
 | 七彻 | 话事人 | <https://music.163.com/user/home?id=432600510> | <https://space.bilibili.com/523402096> ||
 | [林忻](/index.html?page=organ/members/LinXin/index.md) | 社员 | <https://music.163.com/user/home?id=423939817> | <https://space.bilibili.com/178484473> ||
 | 洛拧 | 话事人 | <https://music.163.com/user/home?id=54211667> | <https://space.bilibili.com/1881163066> ||
-| 派大双 | 社员 | <https://music.163.com/user/home?id=264540511> |||
 | DCleanMeow | 社员 | <https://music.163.com/user/home?id=1528751263> |||
 | 鹿 | 社员 | <https://music.163.com/user/home?id=394926899> |||
 | 风之兀 | 社员 | <https://music.163.com/user/home?id=3265743187> |||
@@ -26,8 +25,8 @@
 | 向夜 | 社员 | <https://music.163.com/user/home?id=3272263200> |||
 | 小鱼青苔 | 社员 | <https://music.163.com/user/home?id=1387789411> |||
 | 颜小明 | 社员 | <https://music.163.com/user/home?id=129214122> |||
-| 云居 | 代理话事人 | <https://music.163.com/user/home?id=2074083312> |||
-| 往昼 | 话事人 | <https://music.163.com/user/home?id=1793585672> | <https://space.bilibili.com/1415132556> ||
+| 云居 | 话事人 | <https://music.163.com/user/home?id=2074083312> |||
+| 往昼 | 社员 | <https://music.163.com/user/home?id=1793585672> | <https://space.bilibili.com/1415132556> ||
 | 余温之尘 | 社员 || <https://space.bilibili.com/1833955728> ||
 | 汐漉生 | 社员 | <https://music.163.com/user/home?id=550357585> | <https://space.bilibili.com/97203337> ||
 | 北白不冰 | 社员 | <https://music.163.com/user/home?id=2016599016> |||
@@ -43,4 +42,7 @@
 | 雨宮華燐 | 社员 | <https://music.163.com/user/home?id=127516682> | <https://space.bilibili.com/17947859> ||
 | 研彧 | 社员 | <https://music.163.com/user/home?id=619176844> |||
 | 阿华有点萌 | 社员 | <https://music.163.com/user/home?id=1994855649> |||
-| 柟栢 | 社员 | <https://music.163.com/user/home?id=6465878011> | <https://space.bilibili.com/1178129072> ||
+| 小阎 | 社员 ||||
+| 断层熔合 | 社员 || <https://space.bilibili.com/504114723> ||
+| 轼梦 | 社员 | <https://music.163.com/user/home?id=7886861831> | <https://space.bilibili.com/1463650583> ||
+| K7 | 社员 | <https://music.163.com/user/home?id=1372222560> | <https://space.bilibili.com/350089419> ||
