@@ -6,6 +6,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="./styles/warsic.css">
     <link rel="stylesheet"
         href="https://fastly.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/styles/default.min.css">
@@ -27,18 +28,24 @@
 </head>
 
 <body class="purple">
-    <div class="container">
-        <div class="top">
-            <center>
+    <header>
+        <nav class="navbar">
+            <a href="/" class="brand-title">Warsic 音乐社团</a>
+            <a href="javascript:void(0);" class="toggle-button" onclick="toggleMenu()">&#9776; Warsic 音乐社团</a>
+            <div class="navbar-links">
                 <ul>
-                    <li><a href="/">首页</a></li>
-			        <li><a href="/index.html?page=organ/index.md">组织</a></li>
-			        <li><a href="/index.html?page=create/index.md">创作</a></li>
-			        <li><a href="/index.html?page=aboutus/index.md">关于社团</a></li>
-			        <li><a href="/index.html?page=joinus/index.md">加入社团</a></li>
-                </ul>
-            </center>
-        </div>
+                    <ul>
+                        <li><a href="/">首页</a></li>
+                        <li><a href="/index.html?page=organ/index.md">组织</a></li>
+                        <li><a href="/index.html?page=create/index.md">创作</a></li>
+                        <li><a href="/index.html?page=aboutus/index.md">关于社团</a></li>
+                        <li><a href="/index.html?page=joinus/index.md">加入社团</a></li>
+                    </ul>
+            </div>
+        </nav>
+        <script src="./header.js"></script>
+    </header>
+    <div class="container">
         <div class="content">
             <article id="render-markdown" class="markdown-body entry-content container-lg" itemprop="text">
             </article>
@@ -50,7 +57,7 @@
                     <div class="jumbotron">
                         <div class="container">
                             <center>
-                                <p>Warsic 音乐社团 © 2023 All Rights Reserved.</p>
+                                <p>Warsic 音乐社团 © 2023-2024 All Rights Reserved.</p>
                                 Github: <a href="https://github.com/Warsic/warsic.cn">https://github.com/Warsic/warsic.github.io</a> |
                                 Email: <a href="mailto://kino@warsic.cn">kino@warsic.cn</a><br>Bilibili: <a
                                     href="https://space.bilibili.com/2011729430">https://space.bilibili.com/2011729430</a> |
