@@ -41,6 +41,10 @@ function warpImg() {
         const container = document.createElement('div');
         container.classList.add('zoom-container');
 
+        img.onload = () => {
+            img.style.display = 'block';
+        };
+
         // Set the width of zoom-container to the image's natural width
         img.addEventListener('load', () => {
             container.style.width = Math.min(articleWidth / 4, img.naturalWidth) + 'px';
@@ -50,7 +54,7 @@ function warpImg() {
         overlay.classList.add('zoom-overlay');
         const zoomImg = document.createElement('img');
         zoomImg.src = img.src;
-        
+
         overlay.appendChild(zoomImg);
         container.appendChild(overlay);
         img.parentNode.insertBefore(container, img);
