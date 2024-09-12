@@ -74,6 +74,7 @@ function render(data) {
     document.getElementById('render-markdown').innerHTML = md.render(data);
 
     warpImg();
+    initImageResize();
 }
 
 function showError(mes) {
@@ -83,5 +84,7 @@ function showError(mes) {
 ////
 let page = getPageName();
 if (page == null) { page = defaultPage; }
+
+window.addEventListener('resize', initImageResize);
 
 load(page, render, showError);

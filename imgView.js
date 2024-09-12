@@ -7,11 +7,6 @@ function warpImg() {
   cursor: zoom-in;
 }
 
-.zoom-img {
-  transition: transform 0.3s ease;
-  max-width: 100%;
-}
-
 .zoom-overlay {
   position: fixed;
   top: 0;
@@ -37,16 +32,25 @@ function warpImg() {
     styleTag.innerHTML = zoomStyle;
     document.head.appendChild(styleTag);
 
+    // Get the width of the article container
+    const article = document.querySelector('article');
+    const articleWidth = article.offsetWidth;
+
     // Add event listeners to each image element
-    document.querySelectorAll('img').forEach(img => {
+    document.querySelectorAll('article img').forEach(img => {
         const container = document.createElement('div');
         container.classList.add('zoom-container');
+
+        // Set the width of zoom-container to the image's natural width
+        img.addEventListener('load', () => {
+            container.style.width = Math.min(articleWidth / 4, img.naturalWidth) + 'px';
+        });
 
         const overlay = document.createElement('div');
         overlay.classList.add('zoom-overlay');
         const zoomImg = document.createElement('img');
         zoomImg.src = img.src;
-
+        
         overlay.appendChild(zoomImg);
         container.appendChild(overlay);
         img.parentNode.insertBefore(container, img);
@@ -61,5 +65,32 @@ function warpImg() {
         overlay.addEventListener('click', () => {
             overlay.style.transform = 'scale(0)';
         });
+    });
+}
+
+function resizeOversizedImages(img, articleWidth) {
+    // Apply max-width to resize the image to fit the viewport
+    img.style.maxWidth = '100%';
+    img.style.height = 'auto';  // Maintain aspect ratio
+}
+
+function initImageResize() {
+    // Get the width of the article container
+    const article = document.querySelector('article');
+    if (!article) return;
+
+    const articleWidth = article.offsetWidth;
+
+    // Loop through each image inside the article container
+    document.querySelectorAll('article img').forEach(img => {
+        // Check if the image is already loaded
+        if (img.complete) {
+            resizeOversizedImages(img, articleWidth);  // Resize if the image is already loaded
+        } else {
+            // Add an event listener to resize when the image is fully loaded
+            img.addEventListener('load', () => {
+                resizeOversizedImages(img, articleWidth);
+            });
+        }
     });
 }
