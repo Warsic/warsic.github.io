@@ -72,6 +72,8 @@ function render(data) {
     md.use(window.markdownitCheckbox);
 
     document.getElementById('render-markdown').innerHTML = md.render(data);
+
+    warpImg();
 }
 
 function showError(mes) {
