@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>一亩花田</title>
+<style>
+  @font-face {
+    font-family: 'Zpix';
+    src: url('zpix.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  body {
+    background-color: #F5E6C8;
+    font-family: 'Zpix', 'Courier New', monospace;
+    overflow-x: hidden;
+    touch-action: manipulation;
+    image-rendering: pixelated;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+  }
+
+  .header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 16px 12px 8px 12px;
+  }
+
+  .title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #5A3E28;
+    letter-spacing: 6px;
+    text-shadow: 2px 2px 0 #D4B896;
+  }
+
+  .header-btns {
+    position: fixed;
+    right: 4px;
+    top: 4px;
+    display: flex;
+    gap: 0px;
+    align-items: center;
+    z-index: 50;
+  }
+
+  .icon-btn {
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+  }
+
+  .icon-btn img {
+    width: 48px;
+    height: 48px;
+    image-rendering: pixelated;
+  }
+
+  .song-name-bar {
+    width: 100%;
+    padding: 2px 8px 4px 8px;
+    height: 18px;
+    font-size: 11px;
+    color: #7A6A5A;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .grid-container {
+    width: 100vw;
+    aspect-ratio: 1 / 1;
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    grid-template-rows: repeat(16, 1fr);
+    background: white;
+    border: 2px solid #C8C0B0;
+  }
+
+  .cell {
+    background: white;
+    border: 1px solid #E0E0E0;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .cell.selected {
+    border: 2px solid #666;
+    z-index: 1;
+  }
+
+  .cell .play-icon,
+  .cell .pause-icon {
+    display: none;
+    position: absolute;
+    width: 60%;
+    height: 60%;
+  }
+
+  .cell.show-play .play-icon { display: block; }
+  .cell.show-pause .pause-icon { display: block; }
+
+  .toolbar {
+    display: flex;
+    gap: 12px;
+    margin-top: 14px;
+    justify-content: center;
+  }
+
+  .tool-btn {
+    width: calc((100vw / 16) * 2);
+    height: calc((100vw / 16) * 2);
+    max-width: 64px;
+    max-height: 64px;
+    background: #555;
+    border: 3px solid #AAAAAA;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    image-rendering: pixelated;
+  }
+
+  .tool-btn.active { background: #111; }
+
+  .tool-btn img {
+    width: 120%;
+    height: 120%;
+    image-rendering: pixelated;
+  }
+
+  .tool-label {
+    font-size: 10px;
+    color: #5A3E28;
+    text-align: center;
+    margin-top: 3px;
+  }
+
+  .tool-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.show { display: flex; }
+
+  .popup {
+    background: #FFF8EE;
+    border: 4px solid #5A3E28;
+    padding: 20px;
+    width: 85vw;
+    max-width: 340px;
+    position: relative;
+  }
+
+  .popup h3 {
+    font-size: 15px;
+    color: #5A3E28;
+    margin-bottom: 14px;
+    letter-spacing: 2px;
+  }
+
+  .popup label {
+    font-size: 12px;
+    color: #7A6A5A;
+    display: block;
+    margin-bottom: 4px;
+    margin-top: 10px;
+  }
+
+  .popup input[type="text"] {
+    width: 100%;
+    padding: 6px 8px;
+    font-size: 13px;
+    font-family: 'Zpix', 'Courier New', monospace;
+    border: 2px solid #C8C0B0;
+    background: #fff;
+    outline: none;
+    color: #333;
+    user-select: text;
+    -webkit-user-select: text;
+  }
+
+  .popup input[type="text"]:focus { border-color: #5A3E28; }
+
+  .file-upload-area {
+    margin-top: 6px;
+    padding: 10px;
+    border: 2px dashed #C8C0B0;
+    text-align: center;
+    font-size: 11px;
+    color: #999;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .file-upload-area.has-file {
+    border-color: #5A3E28;
+    color: #5A3E28;
+  }
+
+  .file-upload-area input {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .color-preview-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .color-preview-row span {
+    font-size: 12px;
+    color: #7A6A5A;
+  }
+
+  .color-preview-cell {
+    width: calc(100vw / 16);
+    height: calc(100vw / 16);
+    max-width: 24px;
+    max-height: 24px;
+    border: 2px solid #C8C0B0;
+    cursor: pointer;
+    background: #ccc;
+  }
+
+  .popup .confirm-btn {
+    display: none;
+    width: 100%;
+    padding: 10px;
+    margin-top: 16px;
+    background: #5A3E28;
+    color: #FFF8EE;
+    border: none;
+    font-size: 14px;
+    font-family: 'Zpix', 'Courier New', monospace;
+    cursor: pointer;
+    letter-spacing: 4px;
+  }
+  .popup .confirm-btn.show { display: block; }
+
+  .popup .confirm-btn:active {
+    transform: translate(1px, 1px);
+  }
+
+  /* Confirm dialog (reset) */
+  .confirm-dialog {
+    background: #FFF8EE;
+    border: 4px solid #5A3E28;
+    padding: 20px;
+    width: 75vw;
+    max-width: 300px;
+    text-align: center;
+  }
+
+  .confirm-dialog p {
+    font-size: 13px;
+    color: #5A3E28;
+    margin-bottom: 16px;
+  }
+
+  .confirm-dialog-btns {
+    display: flex;
+    gap: 10px;
+  }
+
+  .confirm-dialog-btns div {
+    flex: 1;
+    padding: 8px;
+    font-size: 13px;
+    font-family: 'Zpix', 'Courier New', monospace;
+    cursor: pointer;
+    text-align: center;
+    letter-spacing: 2px;
+  }
+
+  .confirm-dialog-btns .btn-yes {
+    background: #C44; color: #fff;
+  }
+  .confirm-dialog-btns .btn-yes:active {
+    transform: translate(1px,1px);
+  }
+
+  .confirm-dialog-btns .btn-no {
+    background: #C8C0B0; color: #5A3E28;
+  }
+  .confirm-dialog-btns .btn-no:active {
+    transform: translate(1px,1px);
+  }
+
+  .hsv-popup {
+    background: #FFF8EE;
+    border: 4px solid #5A3E28;
+    padding: 18px;
+    width: 80vw;
+    max-width: 320px;
+  }
+
+  .hsv-popup h3 {
+    font-size: 14px;
+    color: #5A3E28;
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+  }
+
+  .hsv-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .hsv-row label {
+    width: 20px;
+    font-size: 13px;
+    color: #5A3E28;
+    font-weight: bold;
+  }
+
+  .hsv-row input[type="range"] {
+    flex: 1;
+    -webkit-appearance: none;
+    height: 10px;
+    background: #E0D8CC;
+    border: 2px solid #C8C0B0;
+    outline: none;
+  }
+
+  .hsv-row input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #5A3E28;
+    border: 2px solid #FFF8EE;
+    cursor: pointer;
+  }
+
+  .hsv-row .val {
+    width: 32px;
+    font-size: 12px;
+    text-align: right;
+    color: #5A3E28;
+  }
+
+  .hsv-preview {
+    width: 100%;
+    height: 36px;
+    border: 2px solid #C8C0B0;
+    margin-top: 6px;
+    margin-bottom: 12px;
+  }
+
+  .hsv-ok-btn {
+    width: 100%;
+    padding: 8px;
+    background: #5A3E28;
+    color: #FFF8EE;
+    border: none;
+    font-size: 13px;
+    font-family: 'Zpix', 'Courier New', monospace;
+    cursor: pointer;
+    letter-spacing: 4px;
+  }
+
+  .hsv-ok-btn:active {
+    transform: translate(1px, 1px);
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="title">一亩花田</div>
+  <div class="header-btns">
+    <button class="icon-btn" id="resetBtn" title="重置">
+      <img src="reset.png" width="24" height="24">
+    </button>
+    <button class="icon-btn" id="exportBtn" title="导出PNG">
+      <img src="export.png" width="24" height="24">
+    </button>
+  </div>
+</div>
+
+<div class="song-name-bar" id="songNameBar"></div>
+<div class="grid-container" id="grid"></div>
+
+<div class="toolbar" id="toolbar">
+  <div class="tool-col">
+    <div class="tool-btn" data-tool="edit" id="toolEdit"><img src="edit.png"></div>
+    <div class="tool-label">更改</div>
+  </div>
+  <div class="tool-col">
+    <div class="tool-btn" data-tool="move" id="toolMove"><img src="move.png"></div>
+    <div class="tool-label">移动</div>
+  </div>
+  <div class="tool-col">
+    <div class="tool-btn" data-tool="delete" id="toolDelete"><img src="delete.png"></div>
+    <div class="tool-label">删除</div>
+  </div>
+  <div class="tool-col">
+    <div class="tool-btn" data-tool="copy" id="toolCopy"><img src="copy.png"></div>
+    <div class="tool-label">复制</div>
+  </div>
+</div>
+
+<!-- Modal A -->
+<div class="modal-overlay" id="modalA">
+  <div class="popup" id="popupA">
+    <h3>编辑花格</h3>
+    <label>曲名</label>
+    <input type="text" id="inputSongName" placeholder="输入曲名..." autocomplete="off">
+    <label>音频文件</label>
+    <div class="file-upload-area" id="fileUploadArea">
+      <span id="fileLabel">点击选择音频文件</span>
+      <input type="file" id="inputAudioFile" accept="audio/*">
+    </div>
+    <div class="color-preview-row">
+      <span>颜色</span>
+      <div class="color-preview-cell" id="colorPreviewCell"></div>
+    </div>
+    <div id="confirmBtnA" class="confirm-btn">确定</div>
+  </div>
+</div>
+
+<!-- Modal B: HSV -->
+<div class="modal-overlay" id="modalB">
+  <div class="hsv-popup" id="popupB">
+    <h3>选择颜色</h3>
+    <div class="hsv-row">
+      <label>H</label>
+      <input type="range" id="sliderH" min="0" max="360" value="180">
+      <span class="val" id="valH">180</span>
+    </div>
+    <div class="hsv-row">
+      <label>S</label>
+      <input type="range" id="sliderS" min="0" max="100" value="50">
+      <span class="val" id="valS">50</span>
+    </div>
+    <div class="hsv-row">
+      <label>V</label>
+      <input type="range" id="sliderV" min="0" max="100" value="50">
+      <span class="val" id="valV">50</span>
+    </div>
+    <div class="hsv-preview" id="hsvPreview"></div>
+    <button class="hsv-ok-btn" id="hsvOkBtn">确定</button>
+  </div>
+</div>
+
+<!-- Modal C: Reset confirm -->
+<div class="modal-overlay" id="modalC">
+  <div class="confirm-dialog" id="dialogC">
+    <p>确定要清空全部数据吗？</p>
+    <div class="confirm-dialog-btns">
+      <div class="btn-no" id="resetNo">取消</div>
+      <div class="btn-yes" id="resetYes">确定</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============ IndexedDB Storage ============
+const DB_NAME = 'FlowerFieldDB';
+const DB_VERSION = 1;
+const STORE_NAME = 'cells';
+let db = null;
+
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = (e) => {
+      const d = e.target.result;
+      if (!d.objectStoreNames.contains(STORE_NAME)) {
+        d.createObjectStore(STORE_NAME);
+      }
+    };
+    req.onsuccess = (e) => { db = e.target.result; resolve(db); };
+    req.onerror = (e) => reject(e);
+  });
+}
+
+function dbPut(key, value) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(STORE_NAME, 'readwrite');
+    tx.objectStore(STORE_NAME).put(value, key);
+    tx.oncomplete = () => resolve();
+    tx.onerror = (e) => reject(e);
+  });
+}
+
+function dbGet(key) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(STORE_NAME, 'readonly');
+    const req = tx.objectStore(STORE_NAME).get(key);
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = (e) => reject(e);
+  });
+}
+
+function dbDelete(key) {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(STORE_NAME, 'readwrite');
+    tx.objectStore(STORE_NAME).delete(key);
+    tx.oncomplete = () => resolve();
+    tx.onerror = (e) => reject(e);
+  });
+}
+
+function dbGetAll() {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(STORE_NAME, 'readonly');
+    const store = tx.objectStore(STORE_NAME);
+    const result = {};
+    const req = store.openCursor();
+    req.onsuccess = (e) => {
+      const cursor = e.target.result;
+      if (cursor) {
+        result[cursor.key] = cursor.value;
+        cursor.continue();
+      } else {
+        resolve(result);
+      }
+    };
+    req.onerror = (e) => reject(e);
+  });
+}
+
+function dbClearAll() {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(STORE_NAME, 'readwrite');
+    tx.objectStore(STORE_NAME).clear();
+    tx.oncomplete = () => resolve();
+    tx.onerror = (e) => reject(e);
+  });
+}
+
+// ============ DATA ============
+const GRID_SIZE = 16;
+let cells = [];
+let cellData = {}; // { "r,c": { color, songName, audioBase64 } }
+let currentTool = null;
+let selectedCell = null;
+let moveSource = null;
+let copySource = null;
+let currentAudio = null;
+let playingCell = null;
+
+let editingCell = null;
+let tempColor = null;
+let tempAudioBase64 = null;
+
+function keyRC(r, c) { return r + ',' + c; }
+
+// ============ HSV ============
+function hsvToRgb(h, s, v) {
+  s /= 100; v /= 100;
+  const c = v * s;
+  const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+  const m = v - c;
+  let r1, g1, b1;
+  if (h < 60) { r1=c; g1=x; b1=0; }
+  else if (h < 120) { r1=x; g1=c; b1=0; }
+  else if (h < 180) { r1=0; g1=c; b1=x; }
+  else if (h < 240) { r1=0; g1=x; b1=c; }
+  else if (h < 300) { r1=x; g1=0; b1=c; }
+  else { r1=c; g1=0; b1=x; }
+  return [Math.round((r1+m)*255), Math.round((g1+m)*255), Math.round((b1+m)*255)];
+}
+
+function rgbToHsv(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r,g,b), min = Math.min(r,g,b), d = max - min;
+  let h = 0, s = max === 0 ? 0 : d / max, v = max;
+  if (d !== 0) {
+    if (max === r) h = 60 * (((g-b)/d) % 6);
+    else if (max === g) h = 60 * ((b-r)/d + 2);
+    else h = 60 * ((r-g)/d + 4);
+  }
+  if (h < 0) h += 360;
+  return [Math.round(h), Math.round(s*100), Math.round(v*100)];
+}
+
+function hsvToHex(h, s, v) {
+  const [r, g, b] = hsvToRgb(h, s, v);
+  return '#' + [r,g,b].map(x => x.toString(16).padStart(2,'0')).join('');
+}
+
+function hexToRgb(hex) {
+  const m = hex.match(/^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
+  if (!m) return [200,200,200];
+  return [parseInt(m[1],16), parseInt(m[2],16), parseInt(m[3],16)];
+}
+
+// ============ ICONS (using image files) ============
+
+function createPlaySvg() {
+  return `<svg viewBox="0 0 16 16" style="width:60%;height:60%;position:absolute;" class="play-icon">
+    <polygon points="4,2 4,14 13,8" fill="rgba(255,255,255,0.9)" stroke="rgba(0,0,0,0.15)" stroke-width="0.5"/>
+  </svg>`;
+}
+
+function createPauseSvg() {
+  return `<svg viewBox="0 0 16 16" style="width:60%;height:60%;position:absolute;" class="pause-icon">
+    <rect x="3" y="2" width="3.5" height="12" fill="rgba(255,255,255,0.9)" stroke="rgba(0,0,0,0.15)" stroke-width="0.5"/>
+    <rect x="9.5" y="2" width="3.5" height="12" fill="rgba(255,255,255,0.9)" stroke="rgba(0,0,0,0.15)" stroke-width="0.5"/>
+  </svg>`;
+}
+
+// ============ GRID ============
+function buildGrid() {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  cells = [];
+  for (let r = 0; r < GRID_SIZE; r++) {
+    const row = [];
+    for (let c = 0; c < GRID_SIZE; c++) {
+      const el = document.createElement('div');
+      el.className = 'cell';
+      el.innerHTML = createPlaySvg() + createPauseSvg();
+      el.addEventListener('click', () => onCellClick(r, c));
+      grid.appendChild(el);
+      row.push(el);
+      const d = cellData[keyRC(r, c)];
+      if (d && d.color) el.style.background = d.color;
+    }
+    cells.push(row);
+  }
+}
+
+// ============ AUDIO ============
+function stopAudio() {
+  if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; currentAudio = null; }
+  if (playingCell) {
+    cells[playingCell.r][playingCell.c].classList.remove('show-pause');
+    playingCell = null;
+  }
+  document.getElementById('songNameBar').textContent = '';
+}
+
+function clearSelection() {
+  if (selectedCell) {
+    cells[selectedCell.r][selectedCell.c].classList.remove('selected','show-play','show-pause');
+    selectedCell = null;
+  }
+}
+
+// ============ CELL CLICK ============
+function onCellClick(r, c) {
+  const k = keyRC(r, c);
+  const data = cellData[k];
+  const hasData = data && data.color;
+
+  if (currentTool === 'edit') { if (hasData) openPopupA(r, c, true); return; }
+
+  if (currentTool === 'delete') {
+    if (hasData) {
+      delete cellData[k];
+      dbDelete(k);
+      cells[r][c].style.background = 'white';
+      cells[r][c].classList.remove('selected','show-play','show-pause');
+    }
+    return;
+  }
+
+  if (currentTool === 'move') {
+    if (!moveSource) {
+      if (hasData) { moveSource = {r,c}; cells[r][c].classList.add('selected'); }
+    } else {
+      const sk = keyRC(moveSource.r, moveSource.c);
+      const srcData = cellData[sk] ? {...cellData[sk]} : null;
+      const dstData = cellData[k] ? {...cellData[k]} : null;
+      if (dstData) { cellData[sk] = dstData; dbPut(sk, dstData); }
+      else { delete cellData[sk]; dbDelete(sk); }
+      if (srcData) { cellData[k] = srcData; dbPut(k, srcData); }
+      else { delete cellData[k]; dbDelete(k); }
+      refreshCell(moveSource.r, moveSource.c);
+      refreshCell(r, c);
+      cells[moveSource.r][moveSource.c].classList.remove('selected');
+      moveSource = null;
+    }
+    return;
+  }
+
+  if (currentTool === 'copy') {
+    if (!copySource) {
+      if (hasData) { copySource = {r,c}; cells[r][c].classList.add('selected'); }
+    } else {
+      if (!cellData[k] || !cellData[k].color) {
+        const sk = keyRC(copySource.r, copySource.c);
+        cellData[k] = {...cellData[sk]};
+        dbPut(k, cellData[k]);
+        refreshCell(r, c);
+      }
+      cells[copySource.r][copySource.c].classList.remove('selected');
+      copySource = null;
+    }
+    return;
+  }
+
+  // No tool
+  if (!hasData) { clearSelection(); stopAudio(); openPopupA(r, c, false); return; }
+
+  if (selectedCell && selectedCell.r === r && selectedCell.c === c) {
+    if (playingCell && playingCell.r === r && playingCell.c === c) {
+      stopAudio();
+      cells[r][c].classList.remove('show-pause');
+      cells[r][c].classList.add('show-play');
+    } else {
+      stopAudio();
+      playCell(r, c);
+    }
+  } else {
+    clearSelection(); stopAudio();
+    selectedCell = {r,c};
+    cells[r][c].classList.add('selected','show-play');
+  }
+}
+
+function playCell(r, c) {
+  const data = cellData[keyRC(r, c)];
+  if (!data || !data.audioBase64) return;
+  currentAudio = new Audio(data.audioBase64);
+  currentAudio.play().catch(() => {});
+  playingCell = {r,c};
+  const el = cells[r][c];
+  el.classList.remove('show-play');
+  el.classList.add('show-pause');
+  document.getElementById('songNameBar').textContent = '♪ ' + (data.songName || '');
+  currentAudio.addEventListener('ended', () => {
+    el.classList.remove('show-pause');
+    el.classList.add('show-play');
+    playingCell = null;
+    currentAudio = null;
+    document.getElementById('songNameBar').textContent = '';
+  });
+}
+
+function refreshCell(r, c) {
+  const d = cellData[keyRC(r, c)];
+  const el = cells[r][c];
+  el.classList.remove('selected','show-play','show-pause');
+  el.style.background = (d && d.color) ? d.color : 'white';
+}
+
+// ============ TOOLBAR ============
+function initToolbar() {
+  document.querySelectorAll('.tool-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tool = btn.dataset.tool;
+      if (currentTool === tool) {
+        btn.classList.remove('active');
+        currentTool = null;
+        moveSource = null; copySource = null;
+        clearAllHighlights();
+      } else {
+        document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+        currentTool = tool;
+        btn.classList.add('active');
+        moveSource = null; copySource = null;
+        clearSelection(); stopAudio(); clearAllHighlights();
+      }
+    });
+  });
+}
+
+function clearAllHighlights() {
+  for (let r=0;r<GRID_SIZE;r++)
+    for (let c=0;c<GRID_SIZE;c++)
+      cells[r][c].classList.remove('selected','show-play','show-pause');
+}
+
+// ============ POPUP A ============
+function openPopupA(r, c, isEdit) {
+  editingCell = {r,c};
+  const data = cellData[keyRC(r, c)];
+  document.getElementById('inputSongName').value = (isEdit && data) ? (data.songName || '') : '';
+  tempAudioBase64 = (isEdit && data) ? data.audioBase64 : null;
+  tempColor = (isEdit && data && data.color) ? data.color : hsvToHex(180, 50, 50);
+
+  const fl = document.getElementById('fileLabel');
+  const area = document.getElementById('fileUploadArea');
+  if (isEdit && data && data.audioBase64) {
+    fl.textContent = '已有音频 (点击更换)';
+    area.classList.add('has-file');
+  } else {
+    fl.textContent = '点击选择音频文件';
+    area.classList.remove('has-file');
+  }
+
+  document.getElementById('colorPreviewCell').style.background = tempColor;
+  document.getElementById('inputAudioFile').value = '';
+  updateConfirmBtnA();
+  cells[r][c].classList.add('selected');
+  document.getElementById('modalA').classList.add('show');
+}
+
+function closePopupA() {
+  document.getElementById('modalA').classList.remove('show');
+  if (editingCell) {
+    cells[editingCell.r][editingCell.c].classList.remove('selected');
+    editingCell = null;
+  }
+}
+
+function updateConfirmBtnA() {
+  const name = document.getElementById('inputSongName').value.trim();
+  const hasAudio = !!tempAudioBase64;
+  const btn = document.getElementById('confirmBtnA');
+  if (name && hasAudio && tempColor) {
+    btn.classList.add('show');
+  } else {
+    btn.classList.remove('show');
+  }
+}
+
+document.getElementById('inputSongName').addEventListener('input', updateConfirmBtnA);
+
+document.getElementById('inputAudioFile').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    tempAudioBase64 = ev.target.result;
+    document.getElementById('fileLabel').textContent = file.name;
+    document.getElementById('fileUploadArea').classList.add('has-file');
+    updateConfirmBtnA();
+  };
+  reader.readAsDataURL(file);
+});
+
+document.getElementById('colorPreviewCell').addEventListener('click', () => { openPopupB(); });
+
+document.getElementById('confirmBtnA').addEventListener('click', function(e) {
+  e.stopPropagation();
+  if (!editingCell) return;
+  const k = keyRC(editingCell.r, editingCell.c);
+  const record = {
+    color: tempColor,
+    songName: document.getElementById('inputSongName').value.trim(),
+    audioBase64: tempAudioBase64
+  };
+  cellData[k] = record;
+  dbPut(k, record).then(() => {
+    refreshCell(editingCell.r, editingCell.c);
+    closePopupA();
+  }).catch((err) => {
+    console.error('Save failed', err);
+    refreshCell(editingCell.r, editingCell.c);
+    closePopupA();
+  });
+});
+
+document.getElementById('popupA').addEventListener('click', function(e) { e.stopPropagation(); });
+document.getElementById('modalA').addEventListener('click', function(e) {
+  if (e.target === this) closePopupA();
+});
+
+// ============ POPUP B (HSV) ============
+function openPopupB() {
+  const [r, g, b] = hexToRgb(tempColor || hsvToHex(180,50,50));
+  const [h, s, v] = rgbToHsv(r, g, b);
+  document.getElementById('sliderH').value = h;
+  document.getElementById('sliderS').value = s;
+  document.getElementById('sliderV').value = v;
+  document.getElementById('valH').textContent = h;
+  document.getElementById('valS').textContent = s;
+  document.getElementById('valV').textContent = v;
+  document.getElementById('hsvPreview').style.background = hsvToHex(h, s, v);
+  document.getElementById('modalB').classList.add('show');
+}
+
+function closePopupB() { document.getElementById('modalB').classList.remove('show'); }
+
+function updateHsvPreview() {
+  const h = parseInt(document.getElementById('sliderH').value);
+  const s = parseInt(document.getElementById('sliderS').value);
+  const v = parseInt(document.getElementById('sliderV').value);
+  document.getElementById('valH').textContent = h;
+  document.getElementById('valS').textContent = s;
+  document.getElementById('valV').textContent = v;
+  document.getElementById('hsvPreview').style.background = hsvToHex(h, s, v);
+}
+
+document.getElementById('sliderH').addEventListener('input', updateHsvPreview);
+document.getElementById('sliderS').addEventListener('input', updateHsvPreview);
+document.getElementById('sliderV').addEventListener('input', updateHsvPreview);
+
+document.getElementById('hsvOkBtn').addEventListener('click', () => {
+  const h = parseInt(document.getElementById('sliderH').value);
+  const s = parseInt(document.getElementById('sliderS').value);
+  const v = parseInt(document.getElementById('sliderV').value);
+  tempColor = hsvToHex(h, s, v);
+  document.getElementById('colorPreviewCell').style.background = tempColor;
+  closePopupB();
+  updateConfirmBtnA();
+});
+
+document.getElementById('popupB').addEventListener('click', function(e) { e.stopPropagation(); });
+document.getElementById('modalB').addEventListener('click', function(e) {
+  if (e.target === this) closePopupB();
+});
+
+// ============ RESET ============
+document.getElementById('resetBtn').addEventListener('click', () => {
+  document.getElementById('modalC').classList.add('show');
+});
+
+document.getElementById('resetNo').addEventListener('click', () => {
+  document.getElementById('modalC').classList.remove('show');
+});
+
+document.getElementById('resetYes').addEventListener('click', () => {
+  stopAudio();
+  clearSelection();
+  cellData = {};
+  dbClearAll().then(() => {
+    buildGrid();
+    document.getElementById('modalC').classList.remove('show');
+  });
+});
+
+document.getElementById('dialogC').addEventListener('click', function(e) { e.stopPropagation(); });
+document.getElementById('modalC').addEventListener('click', function(e) {
+  if (e.target === this) this.classList.remove('show');
+});
+
+// ============ EXPORT PNG ============
+document.getElementById('exportBtn').addEventListener('click', () => {
+  const px = 80;
+  const canvas = document.createElement('canvas');
+  canvas.width = GRID_SIZE * px;
+  canvas.height = GRID_SIZE * px;
+  const ctx = canvas.getContext('2d');
+  ctx.imageSmoothingEnabled = false;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let r = 0; r < GRID_SIZE; r++) {
+    for (let c = 0; c < GRID_SIZE; c++) {
+      const d = cellData[keyRC(r, c)];
+      if (d && d.color) {
+        ctx.fillStyle = d.color;
+        ctx.fillRect(c * px, r * px, px, px);
+      }
+    }
+  }
+  canvas.toBlob(blob => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = '一亩花田.png';
+    a.click();
+    URL.revokeObjectURL(url);
+  }, 'image/png');
+});
+
+// ============ INIT ============
+openDB().then(() => dbGetAll()).then((data) => {
+  cellData = data;
+  buildGrid();
+  initToolbar();
+}).catch(err => {
+  console.error('DB init error', err);
+  buildGrid();
+  initToolbar();
+});
+</script>
+</body>
+</html>
