@@ -5,9 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>一亩花田</title>
 <style>
+  /*
+   * 基准单位 U = 100vw / 15（一个格子宽）
+   * 所有布局尺寸均以 U 的倍数表达，无硬编码 px 尺寸
+   * 仅保留装饰性 border-width (1-4px) 及 translate(1px,1px) 微交互
+   */
+
   @font-face {
     font-family: 'Zpix';
-    src: url('zpix.woff2') format('woff2');
+    src: url('zpix.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
   }
@@ -22,7 +28,7 @@
   }
 
   body {
-    background-color: #F5E6C8;
+    background-color: rgb(187, 183, 92);
     font-family: 'Zpix', 'Courier New', monospace;
     overflow-x: hidden;
     touch-action: manipulation;
@@ -31,40 +37,25 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 10px 0;
+    justify-content: flex-start;
+    padding-bottom: calc(100vw / 20);
   }
 
-  .header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    padding: 16px 12px 8px 12px;
-  }
-
-  .title {
-    font-size: 22px;
-    font-weight: bold;
-    color: #5A3E28;
-    letter-spacing: 6px;
-    text-shadow: 2px 2px 0 #D4B896;
-  }
-
+  /* ── 右上角图标（无背景） ── */
+  /* icon = 1.5U = calc(100vw/10)；间距 = icon/2 = calc(100vw/20) */
   .header-btns {
     position: fixed;
-    right: 4px;
-    top: 4px;
+    right: calc(100vw / 20);
+    top: calc(100vw / 20);
     display: flex;
-    gap: 0px;
+    gap: calc(100vw / 20);
     align-items: center;
     z-index: 50;
   }
 
   .icon-btn {
-    width: 48px;
-    height: 48px;
+    width: calc(100vw / 10);
+    height: calc(100vw / 10);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -74,36 +65,76 @@
   }
 
   .icon-btn img {
-    width: 48px;
-    height: 48px;
+    width: 100%;
+    height: 100%;
     image-rendering: pixelated;
   }
 
-  .song-name-bar {
-    width: 100%;
-    padding: 2px 8px 4px 8px;
-    height: 18px;
-    font-size: 11px;
-    color: #7A6A5A;
-    text-align: left;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  /* ── 格子区（宽 = 13U = 13/15·vw） ── */
+  .grid-area {
+    width: calc(100vw * 13 / 15);
+    display: flex;
+    flex-direction: column;
   }
 
+  .title-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    image-rendering: pixelated;
+  }
+
+  /* ── 加载屏 ── */
+  #loadingScreen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgb(187, 183, 92);
+  }
+
+  #loadingGif {
+    position: fixed;
+    z-index: 10000;
+    width: calc(100vw / 3);
+    height: auto;
+    image-rendering: pixelated;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* 进度条高度 = U/8 = 100vw/120 */
+  .progress-bar-container {
+    width: 100%;
+    height: calc(100vw / 120);
+    background: rgb(106, 132, 77);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-bar-played {
+    height: 100%;
+    width: 0%;
+    background: rgb(154, 163, 86);
+  }
+
+  .grid-wrap {
+    width: 100%;
+  }
+
+  /* 分割线 = U/16；精确解：gap = grid_w/220 = 13/15/220·vw = 13/3300·vw */
   .grid-container {
-    width: 100vw;
+    width: 100%;
     aspect-ratio: 1 / 1;
     display: grid;
-    grid-template-columns: repeat(16, 1fr);
-    grid-template-rows: repeat(16, 1fr);
-    background: white;
-    border: 2px solid #C8C0B0;
+    grid-template-columns: repeat(13, 1fr);
+    grid-template-rows: repeat(13, 1fr);
+    background: rgb(229, 225, 193);
+    gap: calc(100vw * 13 / 3300);
   }
 
   .cell {
-    background: white;
-    border: 1px solid #E0E0E0;
+    background: rgb(242, 237, 204);
     position: relative;
     cursor: pointer;
     display: flex;
@@ -112,64 +143,105 @@
     overflow: hidden;
   }
 
+  /* 选中描边向外扩展入分割线区，宽度 = gap */
   .cell.selected {
-    border: 2px solid #666;
-    z-index: 1;
+    outline: calc(100vw * 13 / 3300) solid rgb(187, 183, 92);
+    z-index: 2;
   }
 
   .cell .play-icon,
   .cell .pause-icon {
     display: none;
     position: absolute;
-    width: 60%;
-    height: 60%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: pixelated;
   }
 
   .cell.show-play .play-icon { display: block; }
   .cell.show-pause .pause-icon { display: block; }
 
-  .toolbar {
-    display: flex;
-    gap: 12px;
-    margin-top: 14px;
-    justify-content: center;
-  }
-
-  .tool-btn {
-    width: calc((100vw / 16) * 2);
-    height: calc((100vw / 16) * 2);
-    max-width: 64px;
-    max-height: 64px;
-    background: #555;
-    border: 3px solid #AAAAAA;
-    cursor: pointer;
+  /* ── 曲名（格子外侧下方）── */
+  /* 固定高度保证工具栏位置不随曲名显隐变化；字体高度 = U/2 = 100vw/30 */
+  .song-name-bar {
+    width: 100%;
+    height: calc(100vw / 22);
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: calc(100vw / 90);
+    font-size: calc(100vw / 30);
+    color: rgb(127, 108, 76);
+    overflow: hidden;
+  }
+
+  .song-name-bar .tone-icon {
+    height: 1em;
+    width: auto;
+    flex-shrink: 0;
     image-rendering: pixelated;
   }
 
-  .tool-btn.active { background: #111; }
-
-  .tool-btn img {
-    width: 120%;
-    height: 120%;
-    image-rendering: pixelated;
+  .song-name-bar .song-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
-  .tool-label {
-    font-size: 10px;
-    color: #5A3E28;
-    text-align: center;
-    margin-top: 3px;
+  /* ── 工具栏（等宽格子区：4btn + 3gap = 13U）── */
+  /* btn = 23U/120；gap = U/2 = 100vw/30 */
+  .toolbar {
+    display: flex;
+    gap: calc(100vw / 30);
+    margin-top: calc(100vw / 20);
+    width: calc(100vw * 13 / 15);
   }
 
   .tool-col {
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex: 1;
   }
 
+  .tool-btn {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    image-rendering: pixelated;
+    position: relative;
+    overflow: hidden;
+    border: none;
+    background: none;
+  }
+
+  .tool-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('img/btnbg.png') center / cover no-repeat;
+    opacity: 0.25;
+    z-index: 0;
+    image-rendering: pixelated;
+  }
+
+  .tool-btn.active::before {
+    opacity: 1;
+  }
+
+  .tool-btn img {
+    width: 60%;
+    height: 60%;
+    image-rendering: pixelated;
+    position: relative;
+    z-index: 1;
+  }
+
+
+  /* ── 弹窗 ── */
   .modal-overlay {
     display: none;
     position: fixed;
@@ -184,31 +256,30 @@
   .popup {
     background: #FFF8EE;
     border: 4px solid #5A3E28;
-    padding: 20px;
+    padding: calc(100vw / 20);
     width: 85vw;
-    max-width: 340px;
     position: relative;
   }
 
   .popup h3 {
-    font-size: 15px;
+    font-size: calc(100vw / 26);
     color: #5A3E28;
-    margin-bottom: 14px;
+    margin-bottom: calc(100vw / 28);
     letter-spacing: 2px;
   }
 
   .popup label {
-    font-size: 12px;
+    font-size: calc(100vw / 32);
     color: #7A6A5A;
     display: block;
-    margin-bottom: 4px;
-    margin-top: 10px;
+    margin-bottom: calc(100vw / 100);
+    margin-top: calc(100vw / 39);
   }
 
   .popup input[type="text"] {
     width: 100%;
-    padding: 6px 8px;
-    font-size: 13px;
+    padding: calc(100vw / 65) calc(100vw / 49);
+    font-size: calc(100vw / 30);
     font-family: 'Zpix', 'Courier New', monospace;
     border: 2px solid #C8C0B0;
     background: #fff;
@@ -221,11 +292,11 @@
   .popup input[type="text"]:focus { border-color: #5A3E28; }
 
   .file-upload-area {
-    margin-top: 6px;
-    padding: 10px;
+    margin-top: calc(100vw / 65);
+    padding: calc(100vw / 39);
     border: 2px dashed #C8C0B0;
     text-align: center;
-    font-size: 11px;
+    font-size: calc(100vw / 35);
     color: #999;
     cursor: pointer;
     position: relative;
@@ -249,20 +320,18 @@
   .color-preview-row {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-top: 14px;
+    gap: calc(100vw / 49);
+    margin-top: calc(100vw / 28);
   }
 
   .color-preview-row span {
-    font-size: 12px;
+    font-size: calc(100vw / 32);
     color: #7A6A5A;
   }
 
   .color-preview-cell {
-    width: calc(100vw / 16);
-    height: calc(100vw / 16);
-    max-width: 24px;
-    max-height: 24px;
+    width: calc(100vw / 15);
+    height: calc(100vw / 15);
     border: 2px solid #C8C0B0;
     cursor: pointer;
     background: #ccc;
@@ -271,100 +340,53 @@
   .popup .confirm-btn {
     display: none;
     width: 100%;
-    padding: 10px;
-    margin-top: 16px;
+    padding: calc(100vw / 39);
+    margin-top: calc(100vw / 24);
     background: #5A3E28;
     color: #FFF8EE;
     border: none;
-    font-size: 14px;
+    font-size: calc(100vw / 28);
     font-family: 'Zpix', 'Courier New', monospace;
     cursor: pointer;
     letter-spacing: 4px;
   }
   .popup .confirm-btn.show { display: block; }
+  .popup .confirm-btn:active { transform: translate(1px, 1px); }
 
-  .popup .confirm-btn:active {
-    transform: translate(1px, 1px);
-  }
-
-  /* Confirm dialog (reset) */
-  .confirm-dialog {
-    background: #FFF8EE;
-    border: 4px solid #5A3E28;
-    padding: 20px;
-    width: 75vw;
-    max-width: 300px;
-    text-align: center;
-  }
-
-  .confirm-dialog p {
-    font-size: 13px;
-    color: #5A3E28;
-    margin-bottom: 16px;
-  }
-
-  .confirm-dialog-btns {
-    display: flex;
-    gap: 10px;
-  }
-
-  .confirm-dialog-btns div {
-    flex: 1;
-    padding: 8px;
-    font-size: 13px;
-    font-family: 'Zpix', 'Courier New', monospace;
-    cursor: pointer;
-    text-align: center;
-    letter-spacing: 2px;
-  }
-
-  .confirm-dialog-btns .btn-yes {
-    background: #C44; color: #fff;
-  }
-  .confirm-dialog-btns .btn-yes:active {
-    transform: translate(1px,1px);
-  }
-
-  .confirm-dialog-btns .btn-no {
-    background: #C8C0B0; color: #5A3E28;
-  }
-  .confirm-dialog-btns .btn-no:active {
-    transform: translate(1px,1px);
-  }
-
+  /* ── HSV 调色盘 ── */
   .hsv-popup {
     background: #FFF8EE;
     border: 4px solid #5A3E28;
-    padding: 18px;
+    padding: calc(100vw / 22);
     width: 80vw;
-    max-width: 320px;
   }
 
   .hsv-popup h3 {
-    font-size: 14px;
+    font-size: calc(100vw / 28);
     color: #5A3E28;
-    margin-bottom: 12px;
+    margin-bottom: calc(100vw / 32);
     letter-spacing: 2px;
   }
 
   .hsv-row {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
+    gap: calc(100vw / 49);
+    margin-bottom: calc(100vw / 39);
   }
 
   .hsv-row label {
-    width: 20px;
-    font-size: 13px;
+    width: calc(100vw / 20);
+    font-size: calc(100vw / 30);
     color: #5A3E28;
     font-weight: bold;
+    flex-shrink: 0;
   }
 
   .hsv-row input[type="range"] {
     flex: 1;
     -webkit-appearance: none;
-    height: 10px;
+    height: calc(100vw / 39);
     background: #E0D8CC;
     border: 2px solid #C8C0B0;
     outline: none;
@@ -372,82 +394,86 @@
 
   .hsv-row input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 16px;
-    height: 16px;
+    width: calc(100vw / 24);
+    height: calc(100vw / 24);
     background: #5A3E28;
     border: 2px solid #FFF8EE;
     cursor: pointer;
   }
 
   .hsv-row .val {
-    width: 32px;
-    font-size: 12px;
+    width: calc(100vw / 12);
+    font-size: calc(100vw / 32);
     text-align: right;
     color: #5A3E28;
+    flex-shrink: 0;
   }
 
   .hsv-preview {
     width: 100%;
-    height: 36px;
+    height: calc(100vw / 11);
     border: 2px solid #C8C0B0;
-    margin-top: 6px;
-    margin-bottom: 12px;
+    margin-top: calc(100vw / 65);
+    margin-bottom: calc(100vw / 32);
   }
 
   .hsv-ok-btn {
     width: 100%;
-    padding: 8px;
+    padding: calc(100vw / 49);
     background: #5A3E28;
     color: #FFF8EE;
     border: none;
-    font-size: 13px;
+    font-size: calc(100vw / 30);
     font-family: 'Zpix', 'Courier New', monospace;
     cursor: pointer;
     letter-spacing: 4px;
   }
 
-  .hsv-ok-btn:active {
-    transform: translate(1px, 1px);
-  }
+  .hsv-ok-btn:active { transform: translate(1px, 1px); }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="title">一亩花田</div>
-  <div class="header-btns">
-    <button class="icon-btn" id="resetBtn" title="重置">
-      <img src="reset.png" width="24" height="24">
-    </button>
-    <button class="icon-btn" id="exportBtn" title="导出PNG">
-      <img src="export.png" width="24" height="24">
-    </button>
-  </div>
+<div id="loadingScreen">
+  <img id="loadingGif" src="img/loading.gif" alt="">
 </div>
 
-<div class="song-name-bar" id="songNameBar"></div>
-<div class="grid-container" id="grid"></div>
+<div class="header-btns">
+  <button class="icon-btn" id="listBtn" title="播放列表">
+    <img src="img/list.png">
+  </button>
+  <button class="icon-btn" id="exportBtn" title="导出PNG">
+    <img src="img/export.png">
+  </button>
+</div>
+
+<div class="grid-area">
+  <img id="titleGif" class="title-img" alt="一亩花田">
+  <div class="progress-bar-container">
+    <div class="progress-bar-played" id="progressPlayed"></div>
+  </div>
+  <div class="grid-wrap">
+    <div class="grid-container" id="grid"></div>
+  </div>
+  <div class="song-name-bar" id="songNameBar"></div>
+</div>
 
 <div class="toolbar" id="toolbar">
   <div class="tool-col">
-    <div class="tool-btn" data-tool="edit" id="toolEdit"><img src="edit.png"></div>
-    <div class="tool-label">更改</div>
+    <div class="tool-btn" data-tool="edit" id="toolEdit"><img src="img/edit.png"></div>
   </div>
   <div class="tool-col">
-    <div class="tool-btn" data-tool="move" id="toolMove"><img src="move.png"></div>
-    <div class="tool-label">移动</div>
+    <div class="tool-btn" data-tool="move" id="toolMove"><img src="img/move.png"></div>
   </div>
   <div class="tool-col">
-    <div class="tool-btn" data-tool="delete" id="toolDelete"><img src="delete.png"></div>
-    <div class="tool-label">删除</div>
+    <div class="tool-btn" data-tool="delete" id="toolDelete"><img src="img/delete.png"></div>
   </div>
   <div class="tool-col">
-    <div class="tool-btn" data-tool="copy" id="toolCopy"><img src="copy.png"></div>
-    <div class="tool-label">复制</div>
+    <div class="tool-btn" data-tool="copy" id="toolCopy"><img src="img/copy.png"></div>
   </div>
 </div>
 
-<!-- Modal A -->
+<!-- Modal A: Edit cell -->
 <div class="modal-overlay" id="modalA">
   <div class="popup" id="popupA">
     <h3>编辑花格</h3>
@@ -466,7 +492,7 @@
   </div>
 </div>
 
-<!-- Modal B: HSV -->
+<!-- Modal B: HSV color picker -->
 <div class="modal-overlay" id="modalB">
   <div class="hsv-popup" id="popupB">
     <h3>选择颜色</h3>
@@ -487,17 +513,6 @@
     </div>
     <div class="hsv-preview" id="hsvPreview"></div>
     <button class="hsv-ok-btn" id="hsvOkBtn">确定</button>
-  </div>
-</div>
-
-<!-- Modal C: Reset confirm -->
-<div class="modal-overlay" id="modalC">
-  <div class="confirm-dialog" id="dialogC">
-    <p>确定要清空全部数据吗？</p>
-    <div class="confirm-dialog-btns">
-      <div class="btn-no" id="resetNo">取消</div>
-      <div class="btn-yes" id="resetYes">确定</div>
-    </div>
   </div>
 </div>
 
@@ -578,9 +593,9 @@ function dbClearAll() {
 }
 
 // ============ DATA ============
-const GRID_SIZE = 16;
+const GRID_SIZE = 13;
 let cells = [];
-let cellData = {}; // { "r,c": { color, songName, audioBase64 } }
+let cellData = {};
 let currentTool = null;
 let selectedCell = null;
 let moveSource = null;
@@ -634,19 +649,13 @@ function hexToRgb(hex) {
   return [parseInt(m[1],16), parseInt(m[2],16), parseInt(m[3],16)];
 }
 
-// ============ ICONS (using image files) ============
-
+// ============ ICONS ============
 function createPlaySvg() {
-  return `<svg viewBox="0 0 16 16" style="width:60%;height:60%;position:absolute;" class="play-icon">
-    <polygon points="4,2 4,14 13,8" fill="rgba(255,255,255,0.9)" stroke="rgba(0,0,0,0.15)" stroke-width="0.5"/>
-  </svg>`;
+  return `<img src="img/play.png" class="play-icon">`;
 }
 
 function createPauseSvg() {
-  return `<svg viewBox="0 0 16 16" style="width:60%;height:60%;position:absolute;" class="pause-icon">
-    <rect x="3" y="2" width="3.5" height="12" fill="rgba(255,255,255,0.9)" stroke="rgba(0,0,0,0.15)" stroke-width="0.5"/>
-    <rect x="9.5" y="2" width="3.5" height="12" fill="rgba(255,255,255,0.9)" stroke="rgba(0,0,0,0.15)" stroke-width="0.5"/>
-  </svg>`;
+  return `<img src="img/pause.png" class="pause-icon">`;
 }
 
 // ============ GRID ============
@@ -671,13 +680,18 @@ function buildGrid() {
 }
 
 // ============ AUDIO ============
+function setProgress(pct) {
+  document.getElementById('progressPlayed').style.width = pct + '%';
+}
+
 function stopAudio() {
   if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; currentAudio = null; }
   if (playingCell) {
     cells[playingCell.r][playingCell.c].classList.remove('show-pause');
     playingCell = null;
   }
-  document.getElementById('songNameBar').textContent = '';
+  document.getElementById('songNameBar').innerHTML = '';
+  setProgress(0);
 }
 
 function clearSelection() {
@@ -699,7 +713,7 @@ function onCellClick(r, c) {
     if (hasData) {
       delete cellData[k];
       dbDelete(k);
-      cells[r][c].style.background = 'white';
+      cells[r][c].style.background = '';
       cells[r][c].classList.remove('selected','show-play','show-pause');
     }
     return;
@@ -740,7 +754,7 @@ function onCellClick(r, c) {
     return;
   }
 
-  // No tool
+  // No tool selected
   if (!hasData) { clearSelection(); stopAudio(); openPopupA(r, c, false); return; }
 
   if (selectedCell && selectedCell.r === r && selectedCell.c === c) {
@@ -768,13 +782,20 @@ function playCell(r, c) {
   const el = cells[r][c];
   el.classList.remove('show-play');
   el.classList.add('show-pause');
-  document.getElementById('songNameBar').textContent = '♪ ' + (data.songName || '');
+  document.getElementById('songNameBar').innerHTML =
+    '<img class="tone-icon" src="img/tone.png"><span class="song-text">' + (data.songName || '') + '</span>';
+  currentAudio.addEventListener('timeupdate', () => {
+    if (currentAudio && currentAudio.duration) {
+      setProgress((currentAudio.currentTime / currentAudio.duration) * 100);
+    }
+  });
   currentAudio.addEventListener('ended', () => {
     el.classList.remove('show-pause');
     el.classList.add('show-play');
     playingCell = null;
     currentAudio = null;
-    document.getElementById('songNameBar').textContent = '';
+    document.getElementById('songNameBar').innerHTML = '';
+    setProgress(0);
   });
 }
 
@@ -782,7 +803,7 @@ function refreshCell(r, c) {
   const d = cellData[keyRC(r, c)];
   const el = cells[r][c];
   el.classList.remove('selected','show-play','show-pause');
-  el.style.background = (d && d.color) ? d.color : 'white';
+  el.style.background = (d && d.color) ? d.color : '';
 }
 
 // ============ TOOLBAR ============
@@ -849,11 +870,8 @@ function updateConfirmBtnA() {
   const name = document.getElementById('inputSongName').value.trim();
   const hasAudio = !!tempAudioBase64;
   const btn = document.getElementById('confirmBtnA');
-  if (name && hasAudio && tempColor) {
-    btn.classList.add('show');
-  } else {
-    btn.classList.remove('show');
-  }
+  if (name && hasAudio && tempColor) btn.classList.add('show');
+  else btn.classList.remove('show');
 }
 
 document.getElementById('inputSongName').addEventListener('input', updateConfirmBtnA);
@@ -866,6 +884,11 @@ document.getElementById('inputAudioFile').addEventListener('change', function(e)
     tempAudioBase64 = ev.target.result;
     document.getElementById('fileLabel').textContent = file.name;
     document.getElementById('fileUploadArea').classList.add('has-file');
+    // 仅在曲名为空时按文件名预填（去掉扩展名）
+    const nameInput = document.getElementById('inputSongName');
+    if (!nameInput.value.trim()) {
+      nameInput.value = file.name.replace(/\.[^.]+$/, '');
+    }
     updateConfirmBtnA();
   };
   reader.readAsDataURL(file);
@@ -943,28 +966,9 @@ document.getElementById('modalB').addEventListener('click', function(e) {
   if (e.target === this) closePopupB();
 });
 
-// ============ RESET ============
-document.getElementById('resetBtn').addEventListener('click', () => {
-  document.getElementById('modalC').classList.add('show');
-});
-
-document.getElementById('resetNo').addEventListener('click', () => {
-  document.getElementById('modalC').classList.remove('show');
-});
-
-document.getElementById('resetYes').addEventListener('click', () => {
-  stopAudio();
-  clearSelection();
-  cellData = {};
-  dbClearAll().then(() => {
-    buildGrid();
-    document.getElementById('modalC').classList.remove('show');
-  });
-});
-
-document.getElementById('dialogC').addEventListener('click', function(e) { e.stopPropagation(); });
-document.getElementById('modalC').addEventListener('click', function(e) {
-  if (e.target === this) this.classList.remove('show');
+// ============ LIST (playlist placeholder) ============
+document.getElementById('listBtn').addEventListener('click', () => {
+  // playlist functionality not yet implemented
 });
 
 // ============ EXPORT PNG ============
@@ -995,15 +999,169 @@ document.getElementById('exportBtn').addEventListener('click', () => {
   }, 'image/png');
 });
 
+// ============ GIF 时序常量（按实际 GIF 时长调整）============
+const TITLE_GIF_DURATION_MS  = 2000;   // title.gif 单次播放时长（fallback）
+const TITLE_REPLAY_PAUSE_MS  = 10000;  // 冻结后多久重播
+const LOADING_GIF_DURATION_MS = 2500;  // loading.gif 单次播放时长（fallback）
+const LOADING_GAP_MS          = 2000;  // loading 两次播放之间的间隔
+
+// 解析 GIF 二进制得到实际总时长（ms），用于精确截取最后一帧
+function parseGifDurationMs(ab) {
+  try {
+    const d = new Uint8Array(ab);
+    let i = 13; // 跳过 6 字节 header + 7 字节 logical screen descriptor
+    if (d[10] & 0x80) i += 3 * (2 << (d[10] & 7)); // global color table
+    let ms = 0;
+    while (i < d.length) {
+      if (d[i] === 0x3B) break; // trailer
+      if (d[i] === 0x21 && d[i+1] === 0xF9) { // graphic control extension
+        ms += (d[i+4] | (d[i+5] << 8)) * 10; // delay 单位 centisec → ms
+        i += 8;
+      } else if (d[i] === 0x21) { // other extension
+        i += 2;
+        while (i < d.length && d[i]) i += d[i] + 1;
+        i++;
+      } else if (d[i] === 0x2C) { // image descriptor
+        i += 9;
+        const lp = d[i++];
+        if (lp & 0x80) i += 3 * (2 << (lp & 7)); // local color table
+        i++; // LZW min code size
+        while (i < d.length && d[i]) i += d[i] + 1;
+        i++;
+      } else { i++; }
+    }
+    return ms;
+  } catch(e) { return 0; }
+}
+
+let _titleGifDurationMs   = TITLE_GIF_DURATION_MS;
+let _loadingGifDurationMs = LOADING_GIF_DURATION_MS;
+
+// ============ 预加载资源列表 ============
+const PRELOAD_IMAGES = [
+  'img/btnbg.png','img/copy.png','img/delete.png','img/edit.png',
+  'img/export.png','img/list.png','img/loading.gif','img/move.png',
+  'img/pause.png','img/play.png','img/title.gif','img/tone.png'
+];
+
+// ============ 加载 GIF 循环（replaceWith，无空白帧）============
+let _loadingActive = true;
+let _deferHide = false;
+
+function loopLoadingGif() {
+  if (!_loadingActive) return;
+
+  // 循环边界：完整播放完一遍后检查是否需要退出
+  if (_deferHide) {
+    _loadingActive = false;
+    doHideLoadingScreen();
+    return;
+  }
+
+  // gap 期间旧 gif 保持显示（停在最后一帧）
+  setTimeout(() => {
+    if (!_loadingActive) return;
+    // gap 结束时再次检查，避免多播一遍
+    if (_deferHide) {
+      _loadingActive = false;
+      doHideLoadingScreen();
+      return;
+    }
+    const oldGif = document.getElementById('loadingGif');
+    if (!oldGif) return;
+    const newGif = document.createElement('img');
+    newGif.id = 'loadingGif';
+    newGif.style.display = 'none';
+    oldGif.after(newGif); // 先入 DOM，确保移动端 onload 可靠触发
+    newGif.onload = newGif.onerror = function() {
+      newGif.onload = newGif.onerror = null;
+      if (!_loadingActive) return;
+      newGif.style.display = '';
+      oldGif.remove();
+      setTimeout(loopLoadingGif, _loadingGifDurationMs);
+    };
+    newGif.src = 'img/loading.gif';
+  }, LOADING_GAP_MS);
+}
+
+// ============ 隐藏加载屏 ============
+function doHideLoadingScreen() {
+  const ls = document.getElementById('loadingScreen');
+  const gif = document.getElementById('loadingGif');
+  if (!ls) return;
+  ls.style.transition = 'opacity 0.4s';
+  ls.style.opacity = '0';
+  if (gif) { gif.style.transition = 'opacity 0.4s'; gif.style.opacity = '0'; }
+  if (_onHideStart) { _onHideStart(); _onHideStart = null; } // 淡出开始时触发回调
+  setTimeout(() => { ls.remove(); if (gif) gif.remove(); }, 400);
+}
+
+let _onHideStart = null;
+function hideLoadingScreen(cb) {
+  _onHideStart = cb || null;
+  _deferHide = true;
+}
+
+// ============ 标题 GIF：播一次 → 等 10s → 无闪烁重播 ============
+let _titleIntervalId = null;
+
+function restartTitleGif() {
+  const img = document.getElementById('titleGif');
+  if (!img) return;
+  img.src = '';
+  requestAnimationFrame(() => { img.src = 'img/title.gif'; });
+}
+
+function startTitleLoop() {
+  restartTitleGif();
+  if (_titleIntervalId) clearInterval(_titleIntervalId);
+  _titleIntervalId = setInterval(restartTitleGif, TITLE_REPLAY_PAUSE_MS);
+}
+
+// tab 切回来时重置 interval，避免移动端定时器被节流后偏移
+document.addEventListener('visibilitychange', function() {
+  if (!document.hidden && _titleIntervalId !== null) {
+    clearInterval(_titleIntervalId);
+    restartTitleGif();
+    _titleIntervalId = setInterval(restartTitleGif, TITLE_REPLAY_PAUSE_MS);
+  }
+});
+
+// ============ 预加载所有媒体 ============
+function preloadAll() {
+  const fontP = new FontFace('Zpix', 'url(zpix.ttf)', { weight: 'normal', style: 'normal' })
+    .load().then(f => document.fonts.add(f)).catch(() => {});
+  const titleDurP = fetch('img/title.gif')
+    .then(r => r.arrayBuffer())
+    .then(ab => { const ms = parseGifDurationMs(ab); if (ms > 0) _titleGifDurationMs = ms; })
+    .catch(() => {});
+  const loadingDurP = fetch('img/loading.gif')
+    .then(r => r.arrayBuffer())
+    .then(ab => { const ms = parseGifDurationMs(ab); if (ms > 0) _loadingGifDurationMs = ms; })
+    .catch(() => {});
+  const imgPs = PRELOAD_IMAGES.map(src => new Promise(res => {
+    const i = new Image(); i.onload = i.onerror = res; i.src = src;
+  }));
+  return Promise.all([fontP, titleDurP, loadingDurP, ...imgPs]);
+}
+
 // ============ INIT ============
-openDB().then(() => dbGetAll()).then((data) => {
+// loading GIF 的 HTML src 让第一次播放自然开始，这里接管后续循环
+setTimeout(loopLoadingGif, _loadingGifDurationMs);
+
+Promise.all([
+  openDB().then(() => dbGetAll()),
+  preloadAll()
+]).then(([data]) => {
   cellData = data;
   buildGrid();
   initToolbar();
+  hideLoadingScreen(startTitleLoop);
 }).catch(err => {
-  console.error('DB init error', err);
+  console.error('Init error', err);
   buildGrid();
   initToolbar();
+  hideLoadingScreen(startTitleLoop);
 });
 </script>
 </body>
