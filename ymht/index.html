@@ -109,13 +109,32 @@
     height: calc(100vw / 120);
     background: rgb(106, 132, 77);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .progress-bar-played {
     height: 100%;
     width: 0%;
     background: rgb(154, 163, 86);
+    position: relative;
+  }
+
+  #snailWrap {
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    transform: translateX(50%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    cursor: ew-resize;
+    touch-action: none;
+  }
+
+  #snailWrap img {
+    display: block;
+    height: calc(100vw / 12);
+    width: auto;
+    image-rendering: pixelated;
   }
 
   .grid-wrap {
@@ -186,6 +205,13 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .song-name-bar .playing-icon {
+    height: 1em;
+    width: auto;
+    flex-shrink: 0;
+    image-rendering: pixelated;
   }
 
   /* ── 工具栏（等宽格子区：4btn + 3gap = 13U）── */
@@ -450,7 +476,9 @@
 <div class="grid-area">
   <img id="titleGif" class="title-img" alt="一亩花田">
   <div class="progress-bar-container">
-    <div class="progress-bar-played" id="progressPlayed"></div>
+    <div class="progress-bar-played" id="progressPlayed">
+      <div id="snailWrap"><img src="img/snail.gif" alt=""></div>
+    </div>
   </div>
   <div class="grid-wrap">
     <div class="grid-container" id="grid"></div>
@@ -680,18 +708,177 @@ function buildGrid() {
 }
 
 // ============ AUDIO ============
+let _rafId = null;
+let _snailResetTimer = null;
+let _snailOutTimer = null;
+let _pendingSnailWalk = false;
+let _isPaused = false;
+
+// GIF 字节缓存：预加载后存 ArrayBuffer，每次重播创建新 Blob URL 强制从第1帧解码
+const _gifBytes = {};
+const _blobUrls = {};
+function freshGifSrc(key) {
+  if (_blobUrls[key]) { URL.revokeObjectURL(_blobUrls[key]); delete _blobUrls[key]; }
+  const ab = _gifBytes[key];
+  if (!ab) return null;
+  const url = URL.createObjectURL(new Blob([ab], {type: 'image/gif'}));
+  _blobUrls[key] = url;
+  return url;
+}
+
 function setProgress(pct) {
   document.getElementById('progressPlayed').style.width = pct + '%';
 }
 
+function startProgressAnimation() {
+  if (_rafId) cancelAnimationFrame(_rafId);
+  function tick() {
+    if (!currentAudio || !currentAudio.duration) { _rafId = requestAnimationFrame(tick); return; }
+    setProgress((currentAudio.currentTime / currentAudio.duration) * 100);
+    _rafId = requestAnimationFrame(tick);
+  }
+  _rafId = requestAnimationFrame(tick);
+}
+
+function stopProgressAnimation() {
+  if (_rafId) { cancelAnimationFrame(_rafId); _rafId = null; }
+}
+
+// 切换蜗牛动画：wrapper DOM-swap 保证旧帧可见直到新 GIF 第1帧就绪
+// 取消待执行的 snail_out→snail.gif 计时器（打断当前过渡）
+function setSnailSrc(src) {
+  if (_snailOutTimer) { clearTimeout(_snailOutTimer); _snailOutTimer = null; }
+  const wrap = document.getElementById('snailWrap');
+  if (!wrap) return;
+  const url = freshGifSrc(src);
+  const newSrc = url !== null ? url : src;
+  const oldImg = wrap.querySelector('img');
+  const newImg = document.createElement('img');
+  newImg.style.display = 'none';
+  wrap.appendChild(newImg);
+  newImg.onload = newImg.onerror = function() {
+    newImg.onload = newImg.onerror = null;
+    newImg.style.display = '';
+    if (oldImg) oldImg.remove();
+  };
+  newImg.src = newSrc;
+}
+
+// 淡出蜗牛，400ms 后归零进度；如有 _pendingSnailWalk 则再淡入
+function snailHide() {
+  if (_snailOutTimer) { clearTimeout(_snailOutTimer); _snailOutTimer = null; }
+  if (_snailResetTimer) { clearTimeout(_snailResetTimer); _snailResetTimer = null; }
+  const w = document.getElementById('snailWrap');
+  if (w) w.style.opacity = '0';
+  _snailResetTimer = setTimeout(() => {
+    _snailResetTimer = null;
+    setProgress(0);
+    if (_pendingSnailWalk) {
+      _pendingSnailWalk = false;
+      setSnailSrc('img/snail.gif');
+      const w2 = document.getElementById('snailWrap');
+      if (w2) w2.style.opacity = '1';
+    }
+  }, 400);
+}
+
 function stopAudio() {
-  if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; currentAudio = null; }
+  stopProgressAnimation();
+  _isPaused = false;
+  _pendingSnailWalk = false;
+  if (currentAudio) { currentAudio.pause(); currentAudio = null; }
   if (playingCell) {
     cells[playingCell.r][playingCell.c].classList.remove('show-pause');
     playingCell = null;
   }
   document.getElementById('songNameBar').innerHTML = '';
-  setProgress(0);
+  snailHide();
+}
+
+function pauseAudio() {
+  if (!currentAudio || _isPaused) return;
+  _isPaused = true;
+  currentAudio.pause();
+  stopProgressAnimation();
+  if (playingCell) {
+    cells[playingCell.r][playingCell.c].classList.remove('show-pause');
+    cells[playingCell.r][playingCell.c].classList.add('show-play');
+  }
+  const pi = document.querySelector('#songNameBar .playing-icon');
+  if (pi) pi.style.display = 'none';
+  setSnailSrc('img/snail_in.gif');
+}
+
+function resumeAudio() {
+  if (!currentAudio || !_isPaused) return;
+  _isPaused = false;
+  if (playingCell) {
+    cells[playingCell.r][playingCell.c].classList.remove('show-play');
+    cells[playingCell.r][playingCell.c].classList.add('show-pause');
+  }
+  const pi = document.querySelector('#songNameBar .playing-icon');
+  if (pi) pi.style.display = '';
+  currentAudio.play().catch(() => {});
+  startProgressAnimation();
+  setSnailSrc('img/snail_out.gif');
+  _snailOutTimer = setTimeout(() => {
+    _snailOutTimer = null;
+    setSnailSrc('img/snail.gif');
+  }, _snailOutDurationMs);
+}
+
+// 蜗牛拖拽（控制进度）+ 点击（暂停/继续）
+function initSnailControls() {
+  const wrap = document.getElementById('snailWrap');
+  if (!wrap) return;
+  let isDragging = false, didDrag = false, dragStartX = 0;
+
+  wrap.addEventListener('pointerdown', (e) => {
+    if (!currentAudio) return;
+    e.stopPropagation(); e.preventDefault();
+    isDragging = true; didDrag = false; dragStartX = e.clientX;
+    wrap.setPointerCapture(e.pointerId);
+  });
+
+  wrap.addEventListener('pointermove', (e) => {
+    if (!isDragging) return;
+    if (!didDrag && Math.abs(e.clientX - dragStartX) > 4) {
+      didDrag = true;
+      stopProgressAnimation();
+      // 已缩入状态（暂停中）拖拽不重复播缩入动画
+      if (!_isPaused) setSnailSrc('img/snail_in.gif');
+    }
+    if (didDrag) {
+      const rect = document.querySelector('.progress-bar-container').getBoundingClientRect();
+      const pct = Math.max(0, Math.min(100, (e.clientX - rect.left) / rect.width * 100));
+      setProgress(pct); // 仅更新视觉，pointerup 时再 seek，避免反复 seek 导致音频暂停
+    }
+  });
+
+  wrap.addEventListener('pointerup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    if (didDrag) {
+      // 拖拽结束时一次性 seek
+      if (currentAudio && currentAudio.duration) {
+        const pct = parseFloat(document.getElementById('progressPlayed').style.width) || 0;
+        currentAudio.currentTime = currentAudio.duration * pct / 100;
+      }
+      if (!_isPaused) {
+        setSnailSrc('img/snail_out.gif');
+        _snailOutTimer = setTimeout(() => { _snailOutTimer = null; setSnailSrc('img/snail.gif'); }, _snailOutDurationMs);
+        startProgressAnimation();
+      }
+      // 暂停状态拖拽释放：保持缩入状态，等用户主动恢复
+    }
+  });
+
+  wrap.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (didDrag) { didDrag = false; return; }
+    if (!currentAudio) return;
+    if (_isPaused) resumeAudio(); else pauseAudio();
+  });
 }
 
 function clearSelection() {
@@ -759,9 +946,11 @@ function onCellClick(r, c) {
 
   if (selectedCell && selectedCell.r === r && selectedCell.c === c) {
     if (playingCell && playingCell.r === r && playingCell.c === c) {
-      stopAudio();
-      cells[r][c].classList.remove('show-pause');
-      cells[r][c].classList.add('show-play');
+      if (_isPaused) {
+        resumeAudio();
+      } else {
+        pauseAudio();
+      }
     } else {
       stopAudio();
       playCell(r, c);
@@ -776,27 +965,24 @@ function onCellClick(r, c) {
 function playCell(r, c) {
   const data = cellData[keyRC(r, c)];
   if (!data || !data.audioBase64) return;
+  _isPaused = false;
   currentAudio = new Audio(data.audioBase64);
+  currentAudio.loop = true;
   currentAudio.play().catch(() => {});
   playingCell = {r,c};
   const el = cells[r][c];
   el.classList.remove('show-play');
   el.classList.add('show-pause');
   document.getElementById('songNameBar').innerHTML =
-    '<img class="tone-icon" src="img/tone.png"><span class="song-text">' + (data.songName || '') + '</span>';
-  currentAudio.addEventListener('timeupdate', () => {
-    if (currentAudio && currentAudio.duration) {
-      setProgress((currentAudio.currentTime / currentAudio.duration) * 100);
-    }
-  });
-  currentAudio.addEventListener('ended', () => {
-    el.classList.remove('show-pause');
-    el.classList.add('show-play');
-    playingCell = null;
-    currentAudio = null;
-    document.getElementById('songNameBar').innerHTML = '';
-    setProgress(0);
-  });
+    '<img class="tone-icon" src="img/tone.png"><span class="song-text">' + (data.songName || '') + '</span><img class="playing-icon" src="img/playing.gif">';
+  startProgressAnimation();
+  if (_snailResetTimer) {
+    _pendingSnailWalk = true;
+  } else {
+    setSnailSrc('img/snail.gif');
+    const w = document.getElementById('snailWrap');
+    if (w) w.style.opacity = '1';
+  }
 }
 
 function refreshCell(r, c) {
@@ -1036,12 +1222,16 @@ function parseGifDurationMs(ab) {
 
 let _titleGifDurationMs   = TITLE_GIF_DURATION_MS;
 let _loadingGifDurationMs = LOADING_GIF_DURATION_MS;
+let _snailInDurationMs    = 500;
+let _snailOutDurationMs   = 500;
 
 // ============ 预加载资源列表 ============
 const PRELOAD_IMAGES = [
   'img/btnbg.png','img/copy.png','img/delete.png','img/edit.png',
   'img/export.png','img/list.png','img/loading.gif','img/move.png',
-  'img/pause.png','img/play.png','img/title.gif','img/tone.png'
+  'img/pause.png','img/play.png','img/playing.gif',
+  'img/snail.gif','img/snail_in.gif','img/snail_out.gif',
+  'img/title.gif','img/tone.png'
 ];
 
 // ============ 加载 GIF 循环（replaceWith，无空白帧）============
@@ -1108,8 +1298,8 @@ let _titleIntervalId = null;
 function restartTitleGif() {
   const img = document.getElementById('titleGif');
   if (!img) return;
-  img.src = '';
-  requestAnimationFrame(() => { img.src = 'img/title.gif'; });
+  const url = freshGifSrc('img/title.gif');
+  img.src = url !== null ? url : 'img/title.gif?t=' + Date.now();
 }
 
 function startTitleLoop() {
@@ -1131,18 +1321,24 @@ document.addEventListener('visibilitychange', function() {
 function preloadAll() {
   const fontP = new FontFace('Zpix', 'url(zpix.ttf)', { weight: 'normal', style: 'normal' })
     .load().then(f => document.fonts.add(f)).catch(() => {});
-  const titleDurP = fetch('img/title.gif')
-    .then(r => r.arrayBuffer())
-    .then(ab => { const ms = parseGifDurationMs(ab); if (ms > 0) _titleGifDurationMs = ms; })
-    .catch(() => {});
   const loadingDurP = fetch('img/loading.gif')
     .then(r => r.arrayBuffer())
     .then(ab => { const ms = parseGifDurationMs(ab); if (ms > 0) _loadingGifDurationMs = ms; })
     .catch(() => {});
+  // GIFs that need blob-URL replay: cache bytes and parse durations
+  const gifCacheEntries = [
+    ['img/title.gif',     ab => { const ms = parseGifDurationMs(ab); if (ms > 0) _titleGifDurationMs = ms; }],
+    ['img/snail.gif',     null],
+    ['img/snail_in.gif',  ab => { const ms = parseGifDurationMs(ab); if (ms > 0) _snailInDurationMs = ms; }],
+    ['img/snail_out.gif', ab => { const ms = parseGifDurationMs(ab); if (ms > 0) _snailOutDurationMs = ms; }],
+  ];
+  const gifCacheP = Promise.all(gifCacheEntries.map(([url, handler]) =>
+    fetch(url).then(r => r.arrayBuffer()).then(ab => { _gifBytes[url] = ab; if (handler) handler(ab); }).catch(() => {})
+  ));
   const imgPs = PRELOAD_IMAGES.map(src => new Promise(res => {
     const i = new Image(); i.onload = i.onerror = res; i.src = src;
   }));
-  return Promise.all([fontP, titleDurP, loadingDurP, ...imgPs]);
+  return Promise.all([fontP, loadingDurP, gifCacheP, ...imgPs]);
 }
 
 // ============ INIT ============
@@ -1156,11 +1352,13 @@ Promise.all([
   cellData = data;
   buildGrid();
   initToolbar();
+  initSnailControls();
   hideLoadingScreen(startTitleLoop);
 }).catch(err => {
   console.error('Init error', err);
   buildGrid();
   initToolbar();
+  initSnailControls();
   hideLoadingScreen(startTitleLoop);
 });
 </script>
