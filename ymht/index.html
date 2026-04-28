@@ -279,106 +279,169 @@
   }
   .modal-overlay.show { display: flex; }
 
+  /* ── 弹窗 A ── */
   .popup {
-    background: #FFF8EE;
-    border: 4px solid #5A3E28;
-    padding: calc(100vw / 20);
-    width: 85vw;
+    --pw: calc(100vw * 19 / 30);
+    --cw: calc(100vw / 2);
+    background: url('img/popup_bg.png') no-repeat center / 100% 100%;
+    image-rendering: pixelated;
+    width: var(--pw);
+    aspect-ratio: 1;
+    box-sizing: border-box;
+    padding: calc(var(--pw) / 14) calc(100vw / 15);
     position: relative;
+    overflow: visible;
   }
 
-  .popup h3 {
-    font-size: calc(100vw / 26);
-    color: #5A3E28;
-    margin-bottom: calc(100vw / 28);
-    letter-spacing: 2px;
+  .popup-input-row {
+    display: flex;
+    align-items: stretch;
+    height: calc(var(--cw) / 7);
+    gap: calc(var(--cw) / 26);
+    margin-bottom: calc(var(--cw) / 24);
   }
 
-  .popup label {
-    font-size: calc(100vw / 32);
-    color: #7A6A5A;
-    display: block;
-    margin-bottom: calc(100vw / 100);
-    margin-top: calc(100vw / 39);
+  .song-input-wrap {
+    flex: 1;
+    background: url('img/song_input.png') no-repeat center / 100% 100%;
+    image-rendering: pixelated;
+    display: flex;
+    align-items: center;
   }
 
-  .popup input[type="text"] {
+  #inputSongName {
     width: 100%;
-    padding: calc(100vw / 65) calc(100vw / 49);
-    font-size: calc(100vw / 30);
-    font-family: 'Zpix', 'Courier New', monospace;
-    border: 2px solid #C8C0B0;
-    background: #fff;
+    background: transparent;
+    border: none;
     outline: none;
-    color: #333;
+    font-family: 'Zpix', monospace;
+    font-size: calc(var(--cw) / 19);
+    color: #4E4B28;
+    padding: calc(var(--cw) / 50) calc(var(--cw) / 28);
+    box-sizing: border-box;
     user-select: text;
     -webkit-user-select: text;
   }
 
-  .popup input[type="text"]:focus { border-color: #5A3E28; }
-
-  .file-upload-area {
-    margin-top: calc(100vw / 65);
-    padding: calc(100vw / 39);
-    border: 2px dashed #C8C0B0;
-    text-align: center;
-    font-size: calc(100vw / 35);
-    color: #999;
-    cursor: pointer;
+  .file-icon-btn {
     position: relative;
-    overflow: hidden;
-  }
-
-  .file-upload-area.has-file {
-    border-color: #5A3E28;
-    color: #5A3E28;
-  }
-
-  .file-upload-area input {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
+    background: none;
+    border: none;
+    padding: 0;
     cursor: pointer;
-  }
-
-  .color-preview-row {
+    flex-shrink: 0;
+    aspect-ratio: 2048 / 1940;
     display: flex;
     align-items: center;
-    gap: calc(100vw / 49);
-    margin-top: calc(100vw / 28);
+    justify-content: center;
   }
 
-  .color-preview-row span {
-    font-size: calc(100vw / 32);
-    color: #7A6A5A;
-  }
-
-  .color-preview-cell {
-    width: calc(100vw / 15);
-    height: calc(100vw / 15);
-    border: 2px solid #C8C0B0;
-    cursor: pointer;
-    background: #ccc;
-  }
-
-  .popup .confirm-btn {
-    display: none;
+  .file-icon-btn > img {
     width: 100%;
-    padding: calc(100vw / 39);
-    margin-top: calc(100vw / 24);
-    background: #5A3E28;
-    color: #FFF8EE;
-    border: none;
-    font-size: calc(100vw / 28);
-    font-family: 'Zpix', 'Courier New', monospace;
-    cursor: pointer;
-    letter-spacing: 4px;
+    height: auto;
+    image-rendering: pixelated;
   }
-  .popup .confirm-btn.show { display: block; }
-  .popup .confirm-btn:active { transform: translate(1px, 1px); }
 
+  .file-icon-btn input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    font-size: 0;
+  }
+
+  .tag-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: calc(var(--cw) / 55);
+    margin-bottom: calc(var(--cw) / 18);
+  }
+
+  .tag-btn, .tag-add-btn {
+    background: url('img/tag.png') no-repeat center / 100% 100%;
+    border: none;
+    cursor: pointer;
+    font-family: 'Zpix', monospace;
+    font-size: calc(var(--cw) / 24);
+    color: #F0EDD0;
+    aspect-ratio: 2048 / 1170;
+    image-rendering: pixelated;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    line-height: 1;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .tag-add-btn {
+    background-image: url('img/tag_add.png');
+  }
+
+  .tag-input {
+    background: url('img/tag.png') no-repeat center / 100% 100%;
+    border: none;
+    outline: none;
+    font-family: 'Zpix', monospace;
+    font-size: calc(var(--cw) / 24);
+    color: #6A6840;
+    aspect-ratio: 2048 / 1170;
+    image-rendering: pixelated;
+    text-align: center;
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .color-swatch-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: calc(var(--pw) / 55);
+  }
+
+  .color-label-img {
+    width: calc(100vw * 2 / 15);
+    height: auto;
+    image-rendering: pixelated;
+  }
+
+  .color-swatch {
+    width: calc(100vw * 14 / 75);
+    aspect-ratio: 1;
+    cursor: pointer;
+    -webkit-mask-image: url('img/impression_color.png');
+    mask-image: url('img/impression_color.png');
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+  }
+
+  .confirm-btn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(50%);
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .confirm-btn.show { pointer-events: auto; }
+
+  .confirm-btn img {
+    width: calc(100vw * 7 / 30);
+    height: auto;
+    image-rendering: pixelated;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    filter: grayscale(1);
+  }
+
+  .confirm-btn.show img { filter: none; }
+
+  .confirm-btn.show:active img { transform: translate(1px, 1px); }
   /* ── HSV 调色盘 ── */
   .hsv-popup {
     background: #FFF8EE;
@@ -504,19 +567,23 @@
 <!-- Modal A: Edit cell -->
 <div class="modal-overlay" id="modalA">
   <div class="popup" id="popupA">
-    <h3>编辑花格</h3>
-    <label>曲名</label>
-    <input type="text" id="inputSongName" placeholder="输入曲名..." autocomplete="off">
-    <label>音频文件</label>
-    <div class="file-upload-area" id="fileUploadArea">
-      <span id="fileLabel">点击选择音频文件</span>
-      <input type="file" id="inputAudioFile" accept="audio/*">
+    <div class="popup-input-row">
+      <div class="song-input-wrap">
+        <input type="text" id="inputSongName" placeholder="" autocomplete="off">
+      </div>
+      <button class="file-icon-btn" id="fileIconBtn">
+        <img src="img/file_icon.png" alt="">
+        <input type="file" id="inputAudioFile" accept="audio/*">
+      </button>
     </div>
-    <div class="color-preview-row">
-      <span>颜色</span>
-      <div class="color-preview-cell" id="colorPreviewCell"></div>
+    <div class="tag-grid" id="tagGrid"></div>
+    <div class="color-swatch-wrap">
+      <div class="color-swatch" id="colorPreviewCell"></div>
+      <img class="color-label-img" src="img/color_label.png" alt="color">
     </div>
-    <div id="confirmBtnA" class="confirm-btn">确定</div>
+    <div id="confirmBtnA" class="confirm-btn">
+      <img src="img/confirm.png" alt="播种">
+    </div>
   </div>
 </div>
 
@@ -634,6 +701,7 @@ let playingCell = null;
 let editingCell = null;
 let tempColor = null;
 let tempAudioBase64 = null;
+let tempTags = [];
 
 function keyRC(r, c) { return r + ',' + c; }
 
@@ -1020,25 +1088,56 @@ function clearAllHighlights() {
 }
 
 // ============ POPUP A ============
+function renderTagGrid(tags) {
+  const grid = document.getElementById('tagGrid');
+  grid.innerHTML = '';
+  const SLOTS = 8;
+  tags.forEach((tag, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'tag-btn';
+    btn.textContent = tag;
+    btn.addEventListener('click', () => { tags.splice(i, 1); renderTagGrid(tags); });
+    grid.appendChild(btn);
+  });
+  const empty = SLOTS - tags.length;
+  for (let i = 0; i < empty; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'tag-add-btn';
+    btn.addEventListener('click', () => {
+      const inp = document.createElement('input');
+      inp.type = 'text';
+      inp.className = 'tag-input';
+      inp.maxLength = 3;
+      grid.replaceChild(inp, btn);
+      inp.focus();
+      function confirm() {
+        inp.removeEventListener('blur', confirm);
+        const val = inp.value.trim();
+        if (val) tags.push(val);
+        renderTagGrid(tags);
+      }
+      inp.addEventListener('blur', confirm);
+      inp.addEventListener('keydown', e => { if (e.key === 'Enter') { inp.removeEventListener('blur', confirm); const v = inp.value.trim(); if (v) tags.push(v); renderTagGrid(tags); } });
+    });
+    grid.appendChild(btn);
+  }
+}
+
 function openPopupA(r, c, isEdit) {
   editingCell = {r,c};
   const data = cellData[keyRC(r, c)];
   document.getElementById('inputSongName').value = (isEdit && data) ? (data.songName || '') : '';
   tempAudioBase64 = (isEdit && data) ? data.audioBase64 : null;
   tempColor = (isEdit && data && data.color) ? data.color : hsvToHex(180, 50, 50);
+  tempTags = (isEdit && data && data.tags) ? [...data.tags] : [];
 
-  const fl = document.getElementById('fileLabel');
-  const area = document.getElementById('fileUploadArea');
-  if (isEdit && data && data.audioBase64) {
-    fl.textContent = '已有音频 (点击更换)';
-    area.classList.add('has-file');
-  } else {
-    fl.textContent = '点击选择音频文件';
-    area.classList.remove('has-file');
-  }
+  const fileBtn = document.getElementById('fileIconBtn');
+  if (isEdit && data && data.audioBase64) fileBtn.classList.add('has-file');
+  else fileBtn.classList.remove('has-file');
 
-  document.getElementById('colorPreviewCell').style.background = tempColor;
+  document.getElementById('colorPreviewCell').style.backgroundColor = tempColor;
   document.getElementById('inputAudioFile').value = '';
+  renderTagGrid(tempTags);
   updateConfirmBtnA();
   cells[r][c].classList.add('selected');
   document.getElementById('modalA').classList.add('show');
@@ -1068,9 +1167,7 @@ document.getElementById('inputAudioFile').addEventListener('change', function(e)
   const reader = new FileReader();
   reader.onload = function(ev) {
     tempAudioBase64 = ev.target.result;
-    document.getElementById('fileLabel').textContent = file.name;
-    document.getElementById('fileUploadArea').classList.add('has-file');
-    // 仅在曲名为空时按文件名预填（去掉扩展名）
+    document.getElementById('fileIconBtn').classList.add('has-file');
     const nameInput = document.getElementById('inputSongName');
     if (!nameInput.value.trim()) {
       nameInput.value = file.name.replace(/\.[^.]+$/, '');
@@ -1089,7 +1186,8 @@ document.getElementById('confirmBtnA').addEventListener('click', function(e) {
   const record = {
     color: tempColor,
     songName: document.getElementById('inputSongName').value.trim(),
-    audioBase64: tempAudioBase64
+    audioBase64: tempAudioBase64,
+    tags: [...tempTags]
   };
   cellData[k] = record;
   dbPut(k, record).then(() => {
@@ -1142,7 +1240,7 @@ document.getElementById('hsvOkBtn').addEventListener('click', () => {
   const s = parseInt(document.getElementById('sliderS').value);
   const v = parseInt(document.getElementById('sliderV').value);
   tempColor = hsvToHex(h, s, v);
-  document.getElementById('colorPreviewCell').style.background = tempColor;
+  document.getElementById('colorPreviewCell').style.backgroundColor = tempColor;
   closePopupB();
   updateConfirmBtnA();
 });
