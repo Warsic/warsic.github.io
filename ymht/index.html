@@ -315,7 +315,7 @@
     border: none;
     outline: none;
     font-family: 'Zpix', monospace;
-    font-size: calc(var(--cw) / 19);
+    font-size: calc(var(--cw) / 13);
     color: #4E4B28;
     padding: calc(var(--cw) / 50) calc(var(--cw) / 28);
     box-sizing: border-box;
@@ -443,82 +443,198 @@
 
   .confirm-btn.show:active img { transform: translate(1px, 1px); }
   /* ── HSV 调色盘 ── */
-  .hsv-popup {
-    background: #FFF8EE;
-    border: 4px solid #5A3E28;
-    padding: calc(100vw / 22);
-    width: 80vw;
-  }
-
-  .hsv-popup h3 {
-    font-size: calc(100vw / 28);
-    color: #5A3E28;
-    margin-bottom: calc(100vw / 32);
-    letter-spacing: 2px;
+  .hsv-section {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--cw) / 20);
+    margin-bottom: calc(var(--cw) / 20);
   }
 
   .hsv-row {
     display: flex;
     align-items: center;
-    gap: calc(100vw / 49);
-    margin-bottom: calc(100vw / 39);
+    gap: calc(var(--cw) / 26);
   }
 
-  .hsv-row label {
-    width: calc(100vw / 20);
-    font-size: calc(100vw / 30);
-    color: #5A3E28;
-    font-weight: bold;
+  .hsv-label, .hsv-val {
+    width: calc(var(--cw) / 5.5);
+    font-family: 'Zpix', monospace;
+    font-size: calc(var(--cw) / 19);
+    color: #4E4B28;
     flex-shrink: 0;
   }
 
-  .hsv-row input[type="range"] {
+  .hsv-label { text-align: right; }
+  .hsv-val   { text-align: center; }
+
+  .hsv-slider-wrap {
     flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .hsv-slider-wrap input[type="range"] {
     -webkit-appearance: none;
-    height: calc(100vw / 39);
-    background: #E0D8CC;
-    border: 2px solid #C8C0B0;
+    appearance: none;
+    width: 100%;
+    height: calc(var(--cw) / 8);
+    background: transparent;
     outline: none;
-  }
-
-  .hsv-row input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: calc(100vw / 24);
-    height: calc(100vw / 24);
-    background: #5A3E28;
-    border: 2px solid #FFF8EE;
-    cursor: pointer;
-  }
-
-  .hsv-row .val {
-    width: calc(100vw / 12);
-    font-size: calc(100vw / 32);
-    text-align: right;
-    color: #5A3E28;
-    flex-shrink: 0;
-  }
-
-  .hsv-preview {
-    width: 100%;
-    height: calc(100vw / 11);
-    border: 2px solid #C8C0B0;
-    margin-top: calc(100vw / 65);
-    margin-bottom: calc(100vw / 32);
-  }
-
-  .hsv-ok-btn {
-    width: 100%;
-    padding: calc(100vw / 49);
-    background: #5A3E28;
-    color: #FFF8EE;
     border: none;
-    font-size: calc(100vw / 30);
-    font-family: 'Zpix', 'Courier New', monospace;
     cursor: pointer;
-    letter-spacing: 4px;
+    margin: 0;
+    padding: 0;
   }
 
-  .hsv-ok-btn:active { transform: translate(1px, 1px); }
+  .hsv-slider-wrap input[type="range"]::-webkit-slider-runnable-track {
+    height: calc(var(--cw) / 14);
+    background: url('img/chute.png') no-repeat center / 100% 100%;
+    image-rendering: pixelated;
+    border: none;
+  }
+
+  .hsv-slider-wrap input[type="range"]::-moz-range-track {
+    height: calc(var(--cw) / 14);
+    background: url('img/chute.png') no-repeat center / 100% 100%;
+    image-rendering: pixelated;
+    border: none;
+  }
+
+  .hsv-slider-wrap input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: calc(var(--cw) / 10);
+    height: calc(var(--cw) / 8);
+    background: url('img/slider.png') no-repeat center / 100% 100%;
+    image-rendering: pixelated;
+    cursor: pointer;
+    margin-top: calc((var(--cw) / 14 - var(--cw) / 8) / 2);
+  }
+
+  .hsv-slider-wrap input[type="range"]::-moz-range-thumb {
+    width: calc(var(--cw) / 10);
+    height: calc(var(--cw) / 8);
+    background: url('img/slider.png') no-repeat center / 100% 100%;
+    image-rendering: pixelated;
+    cursor: pointer;
+    border: none;
+  }
+
+  .hsv-color-name {
+    font-family: 'Zpix', monospace;
+    color: #8A8060;
+    text-align: center;
+  }
+
+  .confirm-color-btn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(50%);
+    text-align: center;
+  }
+
+  .confirm-color-btn img {
+    width: calc(100vw * 7 / 30);
+    height: auto;
+    image-rendering: pixelated;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .confirm-color-btn:active img { transform: translate(1px, 1px); }
+
+  /* ── popupB 滑块尺寸覆盖：滑槽6格宽，等比缩放 ── */
+  #popupB {
+    padding-left: calc(100vw / 20);
+    padding-right: calc(100vw / 20);
+    padding-top: calc(100vw / 15);
+    display: flex;
+    flex-direction: column;
+  }
+
+  #popupB .color-swatch-wrap {
+    margin-top: calc(var(--pw) / 25);
+  }
+
+  #popupB .hsv-row {
+    gap: calc(100vw / 90);
+  }
+
+  #popupB .hsv-label {
+    width: calc(100vw * 7 / 75);
+    font-size: calc(100vw * 7 / 150);
+    white-space: nowrap;
+    color: #8A8060;
+  }
+
+  #popupB .hsv-val {
+    width: calc(100vw * 7 / 100);
+    font-size: calc(100vw * 7 / 150);
+    white-space: nowrap;
+    color: #8A8060;
+  }
+
+  #popupB .hsv-slider-wrap {
+    position: relative;
+    height: calc(100vw * 7 / 150);
+  }
+
+  #popupB .hsv-slider-wrap::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -50%;
+    height: calc(100vw * 7 / 100);
+    background: url('img/chute.png') no-repeat center / 100% 100%;
+    image-rendering: pixelated;
+    pointer-events: none;
+  }
+
+  #popupB .hsv-slider-wrap input[type="range"] {
+    position: relative;
+    z-index: 1;
+    height: 90%;
+    background: transparent;
+  }
+
+  #popupB .hsv-slider-wrap input[type="range"]::-webkit-slider-runnable-track {
+    background: transparent;
+    height: 100%;
+    border: none;
+  }
+
+  #popupB .hsv-slider-wrap input[type="range"]::-moz-range-track {
+    background: transparent;
+    height: calc(100vw * 7 / 300);
+    border: none;
+  }
+
+  #popupB .hsv-slider-wrap input[type="range"]::-webkit-slider-thumb {
+    width: calc(100vw * 7 / 150 * 902 / 1136);
+    height: calc(100vw * 7 / 150);
+    margin-top: 0;
+  }
+
+  #popupB .hsv-slider-wrap input[type="range"]::-moz-range-thumb {
+    width: calc(100vw * 7 / 150 * 902 / 1136);
+    height: calc(100vw * 7 / 150);
+  }
+
+  .hsv-color-name {
+    font-size: calc(100vw * 7 / 170);
+  }
+
+  .cell-confirm-anim {
+    position: absolute;
+    inset: 0;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    pointer-events: none;
+    z-index: 5;
+  }
 </style>
 </head>
 <body>
@@ -589,25 +705,37 @@
 
 <!-- Modal B: HSV color picker -->
 <div class="modal-overlay" id="modalB">
-  <div class="hsv-popup" id="popupB">
-    <h3>选择颜色</h3>
-    <div class="hsv-row">
-      <label>H</label>
-      <input type="range" id="sliderH" min="0" max="360" value="180">
-      <span class="val" id="valH">180</span>
+  <div class="popup" id="popupB">
+    <div class="hsv-section">
+      <div class="hsv-row">
+        <span class="hsv-label">色相</span>
+        <div class="hsv-slider-wrap">
+          <input type="range" id="sliderH" min="0" max="360" value="180">
+        </div>
+        <span class="hsv-val" id="valH">180</span>
+      </div>
+      <div class="hsv-row">
+        <span class="hsv-label">浓度</span>
+        <div class="hsv-slider-wrap">
+          <input type="range" id="sliderS" min="0" max="100" value="50">
+        </div>
+        <span class="hsv-val" id="valS">50</span>
+      </div>
+      <div class="hsv-row">
+        <span class="hsv-label">亮度</span>
+        <div class="hsv-slider-wrap">
+          <input type="range" id="sliderV" min="0" max="100" value="50">
+        </div>
+        <span class="hsv-val" id="valV">50</span>
+      </div>
     </div>
-    <div class="hsv-row">
-      <label>S</label>
-      <input type="range" id="sliderS" min="0" max="100" value="50">
-      <span class="val" id="valS">50</span>
+    <div class="color-swatch-wrap">
+      <div class="color-swatch" id="hsvPreview"></div>
+      <div class="hsv-color-name" id="hsvColorName">温柔的绿</div>
     </div>
-    <div class="hsv-row">
-      <label>V</label>
-      <input type="range" id="sliderV" min="0" max="100" value="50">
-      <span class="val" id="valV">50</span>
+    <div class="confirm-color-btn" id="hsvConfirmBtn">
+      <img src="img/confirm_color.png" alt="确定">
     </div>
-    <div class="hsv-preview" id="hsvPreview"></div>
-    <button class="hsv-ok-btn" id="hsvOkBtn">确定</button>
   </div>
 </div>
 
@@ -1179,10 +1307,31 @@ document.getElementById('inputAudioFile').addEventListener('change', function(e)
 
 document.getElementById('colorPreviewCell').addEventListener('click', () => { openPopupB(); });
 
+function playConfirmAnim(r, c, color, onDone) {
+  if (!color) { if (onDone) onDone(); return; }
+  const ab = _gifBytes['img/upload_anim.gif'];
+  if (!ab) { if (onDone) onDone(); return; }
+  const blobUrl = URL.createObjectURL(new Blob([ab], {type: 'image/gif'}));
+  const cell = cells[r][c];
+  const div = document.createElement('div');
+  div.className = 'cell-confirm-anim';
+  div.style.setProperty('-webkit-mask-image', `url("${blobUrl}")`);
+  div.style.setProperty('mask-image', `url("${blobUrl}")`);
+  div.style.backgroundColor = color;
+  cell.appendChild(div);
+  setTimeout(() => {
+    div.remove();
+    URL.revokeObjectURL(blobUrl);
+    if (onDone) onDone();
+  }, _uploadAnimDurationMs);
+}
+
 document.getElementById('confirmBtnA').addEventListener('click', function(e) {
   e.stopPropagation();
   if (!editingCell) return;
   const k = keyRC(editingCell.r, editingCell.c);
+  const animR = editingCell.r, animC = editingCell.c;
+  const animColor = tempColor;
   const record = {
     color: tempColor,
     songName: document.getElementById('inputSongName').value.trim(),
@@ -1190,14 +1339,9 @@ document.getElementById('confirmBtnA').addEventListener('click', function(e) {
     tags: [...tempTags]
   };
   cellData[k] = record;
-  dbPut(k, record).then(() => {
-    refreshCell(editingCell.r, editingCell.c);
-    closePopupA();
-  }).catch((err) => {
-    console.error('Save failed', err);
-    refreshCell(editingCell.r, editingCell.c);
-    closePopupA();
-  });
+  closePopupA();
+  dbPut(k, record).catch(err => console.error('Save failed', err));
+  playConfirmAnim(animR, animC, animColor, () => refreshCell(animR, animC));
 });
 
 document.getElementById('popupA').addEventListener('click', function(e) { e.stopPropagation(); });
@@ -1206,6 +1350,27 @@ document.getElementById('modalA').addEventListener('click', function(e) {
 });
 
 // ============ POPUP B (HSV) ============
+function getColorName(h, s, v) {
+  if (v <= 10)                  return '黑';
+  if (v >= 92 && s <= 12)      return '白';
+  if (s <= 12)                  return '灰';
+  let adj;
+  if      (s <= 50 && v <= 70) adj = '忧郁的';
+  else if (s <= 50 && v >  70) adj = '温柔的';
+  else if (s >  50 && v <= 70) adj = '深沉的';
+  else                          adj = '灿烂的';
+  let hue;
+  if      (h <= 15 || h >= 345) hue = '红';
+  else if (h <= 40)              hue = '橙';
+  else if (h <= 70)              hue = '黄';
+  else if (h <= 160)             hue = '绿';
+  else if (h <= 200)             hue = '青';
+  else if (h <= 260)             hue = '蓝';
+  else if (h <= 295)             hue = '紫';
+  else                           hue = '粉';
+  return adj + hue;
+}
+
 function openPopupB() {
   const [r, g, b] = hexToRgb(tempColor || hsvToHex(180,50,50));
   const [h, s, v] = rgbToHsv(r, g, b);
@@ -1215,11 +1380,16 @@ function openPopupB() {
   document.getElementById('valH').textContent = h;
   document.getElementById('valS').textContent = s;
   document.getElementById('valV').textContent = v;
-  document.getElementById('hsvPreview').style.background = hsvToHex(h, s, v);
+  document.getElementById('hsvPreview').style.backgroundColor = hsvToHex(h, s, v);
+  document.getElementById('hsvColorName').textContent = getColorName(h, s, v);
+  document.getElementById('modalA').classList.remove('show');
   document.getElementById('modalB').classList.add('show');
 }
 
-function closePopupB() { document.getElementById('modalB').classList.remove('show'); }
+function closePopupB() {
+  document.getElementById('modalB').classList.remove('show');
+  document.getElementById('modalA').classList.add('show');
+}
 
 function updateHsvPreview() {
   const h = parseInt(document.getElementById('sliderH').value);
@@ -1228,14 +1398,15 @@ function updateHsvPreview() {
   document.getElementById('valH').textContent = h;
   document.getElementById('valS').textContent = s;
   document.getElementById('valV').textContent = v;
-  document.getElementById('hsvPreview').style.background = hsvToHex(h, s, v);
+  document.getElementById('hsvPreview').style.backgroundColor = hsvToHex(h, s, v);
+  document.getElementById('hsvColorName').textContent = getColorName(h, s, v);
 }
 
 document.getElementById('sliderH').addEventListener('input', updateHsvPreview);
 document.getElementById('sliderS').addEventListener('input', updateHsvPreview);
 document.getElementById('sliderV').addEventListener('input', updateHsvPreview);
 
-document.getElementById('hsvOkBtn').addEventListener('click', () => {
+document.getElementById('hsvConfirmBtn').addEventListener('click', () => {
   const h = parseInt(document.getElementById('sliderH').value);
   const s = parseInt(document.getElementById('sliderS').value);
   const v = parseInt(document.getElementById('sliderV').value);
@@ -1318,10 +1489,11 @@ function parseGifDurationMs(ab) {
   } catch(e) { return 0; }
 }
 
-let _titleGifDurationMs   = TITLE_GIF_DURATION_MS;
-let _loadingGifDurationMs = LOADING_GIF_DURATION_MS;
-let _snailInDurationMs    = 500;
-let _snailOutDurationMs   = 500;
+let _titleGifDurationMs     = TITLE_GIF_DURATION_MS;
+let _loadingGifDurationMs   = LOADING_GIF_DURATION_MS;
+let _snailInDurationMs      = 500;
+let _snailOutDurationMs     = 500;
+let _uploadAnimDurationMs   = 1500;
 
 // ============ 预加载资源列表 ============
 const PRELOAD_IMAGES = [
@@ -1329,7 +1501,10 @@ const PRELOAD_IMAGES = [
   'img/export.png','img/list.png','img/loading.gif','img/move.png',
   'img/pause.png','img/play.png','img/playing.gif',
   'img/snail.gif','img/snail_in.gif','img/snail_out.gif',
-  'img/title.gif','img/tone.png'
+  'img/title.gif','img/tone.png',
+  'img/popup_bg.png','img/song_input.png','img/tag.png','img/tag_add.png',
+  'img/impression_color.png','img/chute.png','img/slider.png',
+  'img/file_icon.png','img/color_label.png','img/confirm.png','img/confirm_color.png'
 ];
 
 // ============ 加载 GIF 循环（replaceWith，无空白帧）============
@@ -1425,10 +1600,11 @@ function preloadAll() {
     .catch(() => {});
   // GIFs that need blob-URL replay: cache bytes and parse durations
   const gifCacheEntries = [
-    ['img/title.gif',     ab => { const ms = parseGifDurationMs(ab); if (ms > 0) _titleGifDurationMs = ms; }],
-    ['img/snail.gif',     null],
-    ['img/snail_in.gif',  ab => { const ms = parseGifDurationMs(ab); if (ms > 0) _snailInDurationMs = ms; }],
-    ['img/snail_out.gif', ab => { const ms = parseGifDurationMs(ab); if (ms > 0) _snailOutDurationMs = ms; }],
+    ['img/title.gif',       ab => { const ms = parseGifDurationMs(ab); if (ms > 0) _titleGifDurationMs = ms; }],
+    ['img/snail.gif',       null],
+    ['img/snail_in.gif',    ab => { const ms = parseGifDurationMs(ab); if (ms > 0) _snailInDurationMs = ms; }],
+    ['img/snail_out.gif',   ab => { const ms = parseGifDurationMs(ab); if (ms > 0) _snailOutDurationMs = ms; }],
+    ['img/upload_anim.gif', ab => { const ms = parseGifDurationMs(ab); if (ms > 0) _uploadAnimDurationMs = ms; }],
   ];
   const gifCacheP = Promise.all(gifCacheEntries.map(([url, handler]) =>
     fetch(url).then(r => r.arrayBuffer()).then(ab => { _gifBytes[url] = ab; if (handler) handler(ab); }).catch(() => {})
