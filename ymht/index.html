@@ -44,7 +44,7 @@
   /* ── 右上角图标（无背景） ── */
   /* icon = 1.5U = calc(100vw/10)；间距 = icon/2 = calc(100vw/20) */
   .header-btns {
-    position: fixed;
+    position: absolute;
     right: calc(100vw / 20);
     top: calc(100vw / 20);
     display: flex;
@@ -635,12 +635,218 @@
     pointer-events: none;
     z-index: 5;
   }
+
+  /* ── 播放列表侧边栏 ── */
+  #playlistOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 199;
+  }
+  #playlistOverlay.open { display: block; }
+
+  #playlistPanel {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: calc(100vw * 9 / 15);
+    background: rgb(106, 132, 77);
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* 底部留1格距离 */
+    padding-bottom: calc(100vw / 15);
+  }
+  #playlistPanel.open { transform: translateX(0); }
+
+  /* 内容左对齐基准 = 左边缘(100vw/30) + 滚动条(100vw/50) + 滚动条与内容间距(100vw/30)
+     = 100vw*(5+3+5)/150 = 100vw*13/150 */
+  .pl-top {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: calc(100vw / 20) calc(100vw / 30) calc(100vw / 40) calc(100vw / 30);
+    gap: calc(100vw / 50);
+  }
+  .pl-top-left {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100vw / 6);
+  }
+  .pl-name {
+    color: rgb(187, 183, 92);
+    font-size: calc(100vw * 7 / 135);
+    font-weight: bold;
+    outline: none;
+    cursor: text;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .pl-bio {
+    color: rgb(187, 183, 92);
+    font-size: calc(100vw * 7 / 200);
+    line-height: 1;
+    height: calc(100vw * 7 / 200 * 1 * 3);
+    outline: none;
+    cursor: text;
+    overflow: hidden;
+  }
+  .pl-cover {
+    flex-shrink: 0;
+    width: calc(100vw / 6);
+    height: calc(100vw / 6);
+    cursor: pointer;
+    image-rendering: pixelated;
+    overflow: hidden;
+  }
+  .pl-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: pixelated;
+    display: block;
+  }
+
+  .pl-search-row {
+    display: flex;
+    align-items: center;
+    padding: 0 calc(100vw / 30) calc(100vw / 40) calc(100vw / 30);
+    gap: calc(100vw / 50);
+  }
+  .pl-search-wrap {
+    flex: 1;
+    position: relative;
+  }
+  .pl-search-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    image-rendering: pixelated;
+  }
+  .pl-search-input {
+    position: absolute;
+    top: 0; bottom: 0; left: 0;
+    right: calc(100% * 344 / 2048);
+    background: transparent;
+    border: none;
+    outline: none;
+    color: rgb(187, 183, 92);
+    font-family: 'Zpix', 'Courier New', monospace;
+    font-size: calc(100vw * 7 / 200);
+    padding: 0 calc(100vw / 60);
+    caret-color: rgb(187, 183, 92);
+  }
+  .pl-search-input::placeholder { color: transparent; }
+  .pl-mode-btn {
+    flex-shrink: 0;
+    width: calc(100vw / 15);
+    height: calc(100vw / 15);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  .pl-mode-btn img {
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+    display: block;
+  }
+
+  /* 滚动条左边缘距屏幕左边 100vw/30，
+     内容左边缘距滚动条右边 100vw/30 */
+  .pl-list-wrap {
+    flex: 1;
+    min-height: 0;
+    overflow-y: scroll;
+    direction: rtl;
+    margin: 0 calc(100vw / 30) 0 calc(100vw / 30);
+  }
+  .pl-list-wrap::-webkit-scrollbar { width: calc(100vw / 50); }
+  .pl-list-wrap::-webkit-scrollbar-track {
+    background: rgb(76, 97, 53);
+    margin-top: calc(100vw / 100);
+  }
+  /* 内容不足以滚动时 thumb 被浏览器隐藏，改 track 色模拟 thumb 填满 */
+  .pl-list-wrap.pl-full::-webkit-scrollbar-track { background: rgb(187, 183, 92); }
+  .pl-list-wrap::-webkit-scrollbar-thumb { background: rgb(187, 183, 92); }
+
+  /* padding-left = 100vw/30，使花图标与上方内容左对齐 */
+  .pl-item {
+    direction: ltr;
+    display: flex;
+    align-items: center;
+    padding: calc(100vw / 70) 0 calc(100vw / 70) calc(100vw / 30);
+    gap: calc(100vw / 50);
+    color: rgb(187, 183, 92);
+    font-size: calc(100vw * 7 / 200);
+    cursor: pointer;
+  }
+  .pl-item.pl-playing { color: rgb(242, 237, 204); }
+
+  .pl-flower {
+    position: relative;
+    width: calc(100vw * 7 / 190);
+    height: calc(100vw * 7 / 190);
+    flex-shrink: 0;
+  }
+  .pl-flower::before {
+    content: '';
+    position: absolute;
+    left: 33.33%; top: 33.33%;
+    width: 33.34%; height: 33.34%;
+    background-color: var(--flower-color, transparent);
+  }
+  .pl-flower::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('img/flower_icon.png') no-repeat center / 100% 100%;
+    image-rendering: pixelated;
+  }
+  .pl-song-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .pl-duration { flex-shrink: 0; }
 </style>
 </head>
 <body>
 
 <div id="loadingScreen">
   <img id="loadingGif" src="img/loading.gif" alt="">
+</div>
+
+<div id="playlistOverlay"></div>
+<div id="playlistPanel">
+  <div class="pl-top">
+    <div class="pl-top-left">
+      <div class="pl-name" id="plName" contenteditable="true" spellcheck="false">歌单名称</div>
+      <div class="pl-bio" id="plBio" contenteditable="true" spellcheck="false">个性签名</div>
+    </div>
+    <div class="pl-cover" id="plCover">
+      <img id="plCoverImg" src="img/cover_placeholder.png">
+    </div>
+  </div>
+  <div class="pl-search-row">
+    <div class="pl-search-wrap">
+      <img class="pl-search-img" src="img/search_bar.png">
+      <input type="text" id="plSearch" class="pl-search-input" autocomplete="off" spellcheck="false">
+    </div>
+    <button class="pl-mode-btn" id="plModeBtn">
+      <img id="plModeIcon" src="img/mode_single.png">
+    </button>
+  </div>
+  <div class="pl-list-wrap" id="plListWrap"></div>
+  <input type="file" id="plCoverInput" accept="image/*" style="display:none">
 </div>
 
 <div class="header-btns">
@@ -989,6 +1195,7 @@ function stopAudio() {
   }
   document.getElementById('songNameBar').innerHTML = '';
   snailHide();
+  if (_plOpen) renderPlaylist();
 }
 
 function pauseAudio() {
@@ -1163,7 +1370,10 @@ function playCell(r, c) {
   if (!data || !data.audioBase64) return;
   _isPaused = false;
   currentAudio = new Audio(data.audioBase64);
-  currentAudio.loop = true;
+  currentAudio.loop = (_playMode === 'single');
+  if (_playMode !== 'single') {
+    currentAudio.addEventListener('ended', onAudioEnded);
+  }
   currentAudio.play().catch(() => {});
   playingCell = {r,c};
   const el = cells[r][c];
@@ -1179,6 +1389,7 @@ function playCell(r, c) {
     const w = document.getElementById('snailWrap');
     if (w) w.style.opacity = '1';
   }
+  if (_plOpen) renderPlaylist();
 }
 
 function refreshCell(r, c) {
@@ -1351,9 +1562,9 @@ document.getElementById('modalA').addEventListener('click', function(e) {
 
 // ============ POPUP B (HSV) ============
 function getColorName(h, s, v) {
-  if (v <= 10)                  return '黑';
-  if (v >= 92 && s <= 12)      return '白';
-  if (s <= 12)                  return '灰';
+  if (v <= 10)                  return '深沉的黑';
+  if (v >= 92 && s <= 12)      return '温柔的白';
+  if (s <= 12)                  return '忧郁的灰';
   let adj;
   if      (s <= 50 && v <= 70) adj = '忧郁的';
   else if (s <= 50 && v >  70) adj = '温柔的';
@@ -1421,10 +1632,212 @@ document.getElementById('modalB').addEventListener('click', function(e) {
   if (e.target === this) closePopupB();
 });
 
-// ============ LIST (playlist placeholder) ============
+// ============ PLAYLIST ============
+const _durationCache = {};
+let _plOpen = false;
+let _playMode = 'single';
+const _playModes = ['single', 'list', 'random', 'seq'];
+const _playModeIcons = {
+  single: 'img/mode_single.png',
+  list: 'img/mode_list.png',
+  random: 'img/mode_random.png',
+  seq: 'img/mode_seq.png'
+};
+
+function setPlayMode(mode) {
+  _playMode = mode;
+  document.getElementById('plModeIcon').src = _playModeIcons[mode];
+  if (currentAudio) {
+    currentAudio.loop = (mode === 'single');
+  }
+}
+
+function onAudioEnded() {
+  const prev = playingCell ? {r: playingCell.r, c: playingCell.c} : null;
+  stopAudio();
+  if (!prev) return;
+  const tracks = getPlaylistTracks(document.getElementById('plSearch').value);
+  if (tracks.length === 0) return;
+  const idx = tracks.findIndex(t => t.r === prev.r && t.c === prev.c);
+  if (_playMode === 'list') {
+    const next = tracks[(idx + 1) % tracks.length];
+    clearSelection(); playCell(next.r, next.c);
+  } else if (_playMode === 'random') {
+    const next = tracks[Math.floor(Math.random() * tracks.length)];
+    clearSelection(); playCell(next.r, next.c);
+  } else if (_playMode === 'seq') {
+    if (idx < tracks.length - 1) {
+      clearSelection(); playCell(tracks[idx + 1].r, tracks[idx + 1].c);
+    }
+  }
+}
+
+function formatDuration(s) {
+  if (!s || isNaN(s) || !isFinite(s)) return '--:--';
+  const m = Math.floor(s / 60);
+  const ss = Math.floor(s % 60);
+  return m + ':' + String(ss).padStart(2, '0');
+}
+
+function openPlaylist() {
+  document.getElementById('playlistPanel').classList.add('open');
+  document.getElementById('playlistOverlay').classList.add('open');
+  _plOpen = true;
+  renderPlaylist();
+}
+
+function closePlaylist() {
+  document.getElementById('playlistPanel').classList.remove('open');
+  document.getElementById('playlistOverlay').classList.remove('open');
+  _plOpen = false;
+}
+
+function getPlaylistTracks(query) {
+  const q = (query || '').trim().toLowerCase();
+  const tracks = [];
+  for (let r = 0; r < GRID_SIZE; r++) {
+    for (let c = 0; c < GRID_SIZE; c++) {
+      const k = keyRC(r, c);
+      const d = cellData[k];
+      if (!d || !d.audioBase64) continue;
+      if (q) {
+        const nameMatch = (d.songName || '').toLowerCase().includes(q);
+        const tagMatch = (d.tags || []).some(t => t.toLowerCase().includes(q));
+        let colorMatch = false;
+        if (d.color) {
+          const [rr, gg, bb] = hexToRgb(d.color);
+          const [hh, ss, vv] = rgbToHsv(rr, gg, bb);
+          colorMatch = getColorName(hh, ss, vv).includes(q);
+        }
+        if (!nameMatch && !tagMatch && !colorMatch) continue;
+      }
+      tracks.push({k, r, c, data: d});
+    }
+  }
+  return tracks;
+}
+
+function renderPlaylist() {
+  const wrap = document.getElementById('plListWrap');
+  const query = document.getElementById('plSearch').value;
+  const tracks = getPlaylistTracks(query);
+  wrap.innerHTML = '';
+  tracks.forEach(({k, r, c, data}) => {
+    const item = document.createElement('div');
+    item.className = 'pl-item';
+    const isPlaying = playingCell && playingCell.r === r && playingCell.c === c;
+    if (isPlaying) item.classList.add('pl-playing');
+
+    const flower = document.createElement('div');
+    flower.className = 'pl-flower';
+    flower.style.setProperty('--flower-color', data.color || 'transparent');
+
+    const nameEl = document.createElement('span');
+    nameEl.className = 'pl-song-name';
+    nameEl.textContent = data.songName || '（未命名）';
+
+    const durEl = document.createElement('span');
+    durEl.className = 'pl-duration';
+
+    if (_durationCache[k] != null) {
+      durEl.textContent = formatDuration(_durationCache[k]);
+    } else if (isPlaying && currentAudio && isFinite(currentAudio.duration) && currentAudio.duration > 0) {
+      _durationCache[k] = currentAudio.duration;
+      durEl.textContent = formatDuration(currentAudio.duration);
+    } else {
+      durEl.textContent = '--:--';
+      const a = new Audio();
+      a.preload = 'metadata';
+      a.addEventListener('loadedmetadata', () => {
+        if (isFinite(a.duration) && a.duration > 0) {
+          _durationCache[k] = a.duration;
+          durEl.textContent = formatDuration(a.duration);
+        }
+        a.src = '';
+      });
+      a.src = data.audioBase64;
+    }
+
+    item.appendChild(flower);
+    item.appendChild(nameEl);
+    item.appendChild(durEl);
+
+    item.addEventListener('click', () => {
+      stopAudio();
+      clearSelection();
+      playCell(r, c);
+    });
+
+    wrap.appendChild(item);
+  });
+  requestAnimationFrame(() => {
+    wrap.classList.toggle('pl-full', wrap.scrollHeight <= wrap.clientHeight);
+  });
+}
+
+(function initPlaylistMeta() {
+  const nameEl = document.getElementById('plName');
+  const bioEl  = document.getElementById('plBio');
+  nameEl.textContent = localStorage.getItem('pl_name') || '我的花田';
+  bioEl.textContent  = localStorage.getItem('pl_bio')  || '个性签名';
+  nameEl.addEventListener('blur', () => localStorage.setItem('pl_name', nameEl.textContent.trim() || '歌单名称'));
+  bioEl.addEventListener('blur',  () => localStorage.setItem('pl_bio',  bioEl.textContent.trim()  || '个性签名'));
+  nameEl.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); nameEl.blur(); }
+  });
+  bioEl.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      const lines = bioEl.innerText.split('\n').length;
+      if (lines >= 3) e.preventDefault();
+    }
+  });
+})();
+
 document.getElementById('listBtn').addEventListener('click', () => {
-  // playlist functionality not yet implemented
+  if (_plOpen) closePlaylist(); else openPlaylist();
 });
+document.getElementById('playlistOverlay').addEventListener('click', closePlaylist);
+document.getElementById('plSearch').addEventListener('input', () => {
+  localStorage.setItem('pl_search', document.getElementById('plSearch').value);
+  renderPlaylist();
+});
+(function initSearch() {
+  const saved = localStorage.getItem('pl_search');
+  if (saved) document.getElementById('plSearch').value = saved;
+})();
+
+document.getElementById('plModeBtn').addEventListener('click', () => {
+  setPlayMode(_playModes[(_playModes.indexOf(_playMode) + 1) % _playModes.length]);
+});
+
+document.getElementById('plCover').addEventListener('click', () => {
+  document.getElementById('plCoverInput').click();
+});
+document.getElementById('plCoverInput').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    const img = new Image();
+    img.onload = () => {
+      const size = Math.min(img.width, img.height);
+      const canvas = document.createElement('canvas');
+      canvas.width = size; canvas.height = size;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, (img.width - size) / 2, (img.height - size) / 2, size, size, 0, 0, size, size);
+      const dataURL = canvas.toDataURL('image/jpeg', 0.9);
+      document.getElementById('plCoverImg').src = dataURL;
+      localStorage.setItem('pl_cover', dataURL);
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+  e.target.value = '';
+});
+(function initCover() {
+  const saved = localStorage.getItem('pl_cover');
+  if (saved) document.getElementById('plCoverImg').src = saved;
+})();
 
 // ============ EXPORT PNG ============
 document.getElementById('exportBtn').addEventListener('click', () => {
@@ -1504,7 +1917,10 @@ const PRELOAD_IMAGES = [
   'img/title.gif','img/tone.png',
   'img/popup_bg.png','img/song_input.png','img/tag.png','img/tag_add.png',
   'img/impression_color.png','img/chute.png','img/slider.png',
-  'img/file_icon.png','img/color_label.png','img/confirm.png','img/confirm_color.png'
+  'img/file_icon.png','img/color_label.png','img/confirm.png','img/confirm_color.png',
+  'img/flower_icon.png','img/search_bar.png',
+  'img/cover_placeholder.png',
+  'img/mode_single.png','img/mode_list.png','img/mode_random.png','img/mode_seq.png'
 ];
 
 // ============ 加载 GIF 循环（replaceWith，无空白帧）============
